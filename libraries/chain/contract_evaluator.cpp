@@ -6,8 +6,8 @@ namespace graphene
 namespace chain
 {
 
-const uint64_t contract_private_data_size = 3 * 1024;
-const uint64_t contract_total_data_size = 10 * 1024 * 1024;
+uint64_t contract_private_data_size = 3 * 1024;
+uint64_t contract_total_data_size = 10 * 1024 * 1024;
 
 void_result contract_create_evaluator::do_evaluate(const operation_type &o)
 {
