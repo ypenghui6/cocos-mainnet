@@ -26,6 +26,7 @@
 #include <graphene/chain/transaction_evaluation_state.hpp>
 #include <graphene/chain/protocol/operations.hpp>
 #include <fc/smart_ref_impl.hpp>
+#include <boost/program_options.hpp>
 
 namespace graphene
 {
