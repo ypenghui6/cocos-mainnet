@@ -338,7 +338,7 @@ class database : public db::object_database
     template <typename EvaluatorType>
     void register_evaluator() //  注册验证模块
     {
-        _operation_evaluators[operation::tag<typename EvaluatorType::operation_type>::value].reset(new op_evaluator_impl<EvaluatorType>());
+        _operation_evaluators[operation::tag<typename EvaluatorType::operation_type>::value].reset(new op_evaluator_impl<EvaluatorType>(_options));
     }
 
     //////////////////// db_balance.cpp ////////////////////

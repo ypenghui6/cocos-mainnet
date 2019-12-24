@@ -238,7 +238,7 @@ int main(int argc, char** argv)
             data_dir = fc::current_path() / data_dir;
          
       }
-      node->initialize_db(data_dir);
+      node->initialize_db(data_dir, options);
       fc::path config_ini_path = data_dir / "config.ini";
       if( !fc::exists(config_ini_path) )
          create_new_config_file( config_ini_path, data_dir, cfg_options );

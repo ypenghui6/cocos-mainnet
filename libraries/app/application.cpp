@@ -1021,17 +1021,17 @@ void application::set_program_options(boost::program_options::options_descriptio
   command_line_options.add(_cli_options);
   configuration_file_options.add(_cfg_options);
 }
-void application::initialize_db(const fc::path &data_dir)
+void application::initialize_db(const fc::path &data_dir, const boost::program_options::variables_map &options)
 {
   my->_data_dir = data_dir;
-  my->_chain_db=std::make_shared<chain::database>( my->_data_dir);
+  my->_chain_db=std::make_shared<chain::database>( my->_data_dir, options);
 }
 
 void application::initialize(const boost::program_options::variables_map &options)
 {
   my->_options = &options;
 
-  chain_database()->set_option(options);
+  // chain_database()->set_option(options);
 
   if (options.count("version"))
   {

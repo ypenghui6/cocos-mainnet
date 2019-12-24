@@ -102,7 +102,7 @@ int main(int argc, char** argv) {
          if( data_dir.is_relative() )
             data_dir = fc::current_path() / data_dir;
       }
-      node.initialize_db(data_dir);
+      node.initialize_db(data_dir, options);
 
       fc::path config_ini_path = data_dir / "config.ini";
       // Create config file if not already present

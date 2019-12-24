@@ -132,7 +132,6 @@ class op_evaluator
   public:
     virtual ~op_evaluator() {}
     virtual operation_result evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply) = 0;
-    virtual void set_option(const boost::program_options::variables_map &options) = 0;
 };
 
 template <typename T>
@@ -140,7 +139,7 @@ class op_evaluator_impl : public op_evaluator
 {
   public:
     const boost::program_options::variables_map *_options = nullptr;                                                   
-    void set_option(const boost::program_options::variables_map &options)
+    op_evaluator_impl(const boost::program_options::variables_map &options)
     {
         _options = &options;
     }

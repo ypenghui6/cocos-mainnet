@@ -654,14 +654,10 @@ processed_transaction database::apply_transaction(const signed_transaction &trx,
   return result;
 }
 
-void database::set_option(const boost::program_options::variables_map &options)
-{
-  _options = &options;
-  // op_evaluator_impl<graphene::chain::call_contract_function_evaluator> eval = static_cast<graphene::chain::call_contract_function_evaluator *>(_operation_evaluators[35]);
-  // eval.set_option(options);
-  // unique_ptr<op_evaluator> &eval = _operation_evaluators[35];
-  _operation_evaluators[35].set_option(options);
-}
+// void database::set_option(const boost::program_options::variables_map &options)
+// {
+//   _options = &options;
+// }
 
 processed_transaction database::_apply_transaction(const signed_transaction &trx, transaction_apply_mode &run_mode, bool only_try_permissions)
 {
