@@ -173,8 +173,8 @@ contract_result call_contract_function_evaluator::apply(account_id_type caller, 
         FC_ASSERT(contract.contract_data.size() <= contract_total_data_size, "call_contract_function_evaluator::apply, the contract total data size is too large.");
 
         wlog("===================================================");
-        wlog("contract_private_data_size:", contract_private_data_size);
-        wlog("contract_total_data_size:", contract_total_data_size);
+        wlog("contract_private_data_size:${data}", ("data", contract_private_data_size));
+        wlog("contract_total_data_size:${data}", ("data", contract_total_data_size));
         wlog("+++++++++++++++++++++++++++++++++++++++++++++++++++");
         // wdump(("do_contract_function")(fc::time_point::now().time_since_epoch() - start));
         //start = fc::time_point::now().time_since_epoch();
