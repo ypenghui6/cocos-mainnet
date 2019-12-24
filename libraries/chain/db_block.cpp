@@ -41,7 +41,7 @@
 #include <graphene/chain/temporary_authority.hpp>
 
 #include <fc/smart_ref_impl.hpp>
-
+#include <graphene/chain/contract_evaluator.hpp>
 //#include <threadpool/threadpool.hpp>
 //using namespace boost::threadpool;
 
