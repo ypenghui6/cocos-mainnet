@@ -657,7 +657,7 @@ processed_transaction database::apply_transaction(const signed_transaction &trx,
 void database::set_option(const boost::program_options::variables_map &options)
 {
   _options = &options;
-  unique_ptr<op_evaluator_impl> &eval = _operation_evaluators[35];
+  op_evaluator_impl &eval = _operation_evaluators[35];
   eval->set_option(options);
 }
 
