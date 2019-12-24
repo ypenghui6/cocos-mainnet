@@ -657,6 +657,7 @@ processed_transaction database::apply_transaction(const signed_transaction &trx,
 void database::set_option(const boost::program_options::variables_map &options)
 {
   _options = &options;
+  _operation_evaluators[33].set_option(options)
 }
 
 processed_transaction database::_apply_transaction(const signed_transaction &trx, transaction_apply_mode &run_mode, bool only_try_permissions)
