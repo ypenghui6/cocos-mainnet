@@ -659,7 +659,8 @@ void database::set_option(const boost::program_options::variables_map &options)
   _options = &options;
   // op_evaluator_impl<graphene::chain::call_contract_function_evaluator> eval = static_cast<graphene::chain::call_contract_function_evaluator *>(_operation_evaluators[35]);
   // eval.set_option(options);
-  (&_operation_evaluators[35])->set_option(options);
+  shared_ptr<op_evaluator> &eval = _operation_evaluators[35]；
+  eval->set_option(options);
 }
 
 processed_transaction database::_apply_transaction(const signed_transaction &trx, transaction_apply_mode &run_mode, bool only_try_permissions)
@@ -844,7 +845,7 @@ operation_result database::apply_operation(transaction_evaluation_state &eval_st
           assert("Negative operation tag" && false);
         if (u_which >= _operation_evaluators.size())
           assert("No registered evaluator for this operation" && false);
-        unique_ptr<op_evaluator> &eval = _operation_evaluators[u_which]; //  选择对应验证合约的状态机
+        shared_ptr<op_evaluator> &eval = _operation_evaluators[u_which]; //  选择对应验证合约的状态机
         if (!eval)
           assert("No registered evaluator for this operation" && false);
         result = eval->evaluate(eval_state, op, true);
