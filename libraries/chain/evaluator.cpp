@@ -58,10 +58,11 @@ struct operation_visiter_get_payer
   }
 };
 
-operation_result generic_evaluator::start_evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply)
+operation_result generic_evaluator::start_evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply, const boost::program_options::variables_map &options)
 {
   try
   {
+    _options = &options;
     trx_state = &eval_state;
     bool _apply_transaction_is_success = false;
     uint16_t maximum_run_time_ratio = db().get_global_properties().parameters.maximum_run_time_ratio;
@@ -207,6 +208,11 @@ void generic_evaluator::db_adjust_balance(const account_id_type &fee_payer, asse
 {
   db().adjust_balance(fee_payer, fee_from_account);
 }
+
+// generic_evaluator::set_option(const boost::program_options::variables_map &options)
+// {
+//     _options = &options;
+// }
 
 } // namespace chain
 } // namespace graphene
