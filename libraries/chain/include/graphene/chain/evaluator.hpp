@@ -63,7 +63,7 @@ class generic_evaluator
     void pay_fee_for_result(operation_result &result)
     {
     }
-    virtual operation_result start_evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply, const boost::program_options::variables_map &options);
+    virtual operation_result start_evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply);
 
     /**
        * @note derived classes should ASSUME that the default validation that is
