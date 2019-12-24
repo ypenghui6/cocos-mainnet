@@ -32,6 +32,7 @@
 #include <fstream>
 #include <functional>
 #include <iostream>
+#include <boost/program_options.hpp>
 
 namespace graphene
 {
