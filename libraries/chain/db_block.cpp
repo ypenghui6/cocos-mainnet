@@ -659,7 +659,7 @@ void database::set_option(const boost::program_options::variables_map &options)
   _options = &options;
   // op_evaluator_impl<graphene::chain::call_contract_function_evaluator> eval = static_cast<graphene::chain::call_contract_function_evaluator *>(_operation_evaluators[35]);
   // eval.set_option(options);
-  shared_ptr<op_evaluator> &eval = _operation_evaluators[35]；
+  shared_ptr<op_evaluator> &eval = _operation_evaluators[35];
   eval->set_option(options);
 }
 
