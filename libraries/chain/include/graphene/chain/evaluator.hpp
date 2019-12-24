@@ -139,7 +139,7 @@ class op_evaluator_impl : public op_evaluator
 {
   public:
     const boost::program_options::variables_map *_options = nullptr;                                                   
-    set_option(const boost::program_options::variables_map &options)
+    void set_option(const boost::program_options::variables_map &options)
     {
         _options = &options;
     }
