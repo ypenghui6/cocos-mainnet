@@ -247,6 +247,11 @@ int main(int argc, char** argv)
       load_log_config_file( log_cfg_ini_path );
       
       bpo::notify(options);
+      
+      auto _options = &options;
+      wlog("------------------------------------------------------- ${test}",("test", _options->at("max-order-his-seconds-per-market").as<uint64_t>()));
+      wlog("------------------------------------------------------- ${test}",("test", _options->at("contract_private_data_size").as<uint64_t>()));
+
       node->initialize_db(data_dir, options);
 
       node->initialize(options);
