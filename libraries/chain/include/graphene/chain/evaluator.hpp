@@ -140,8 +140,8 @@ class op_evaluator_impl : public op_evaluator
   public:
     const boost::program_options::variables_map *_options = nullptr;                                                   
     op_evaluator_impl(const boost::program_options::variables_map &options):_options(&options){
-      wlog("--------------------------7777777----------------------------- ")
-      wlog("--------------------------7777777----------------------------- ")
+      wlog("--------------------------7777777----------------------------- ");
+      wlog("--------------------------7777777----------------------------- ");
     }
 
     virtual operation_result evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply = true) override
