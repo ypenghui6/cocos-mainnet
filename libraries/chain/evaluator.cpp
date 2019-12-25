@@ -63,10 +63,10 @@ operation_result generic_evaluator::start_evaluate(transaction_evaluation_state 
   try
   {
     _options = &options;
-    auto max_market = _options->at("max-order-his-seconds-per-market").as<uint32_t>();
-    auto contract_private_data_size = _options->at("contract_private_data_size").as<uint64_t>();
-    wlog("----------------------------6666--------------------------- ${test}",("test", max_market));
-    wlog("-----------------------------666-666------------------------- ${test}",("test", contract_private_data_size));
+    // auto max_market = _options->at("max-order-his-seconds-per-market").as<uint32_t>();
+    // auto contract_private_data_size = _options->at("contract_private_data_size").as<uint64_t>();
+    // wlog("----------------------------6666--------------------------- ${test}",("test", max_market));
+    // wlog("-----------------------------666-666------------------------- ${test}",("test", contract_private_data_size));
 
     trx_state = &eval_state;
     bool _apply_transaction_is_success = false;
