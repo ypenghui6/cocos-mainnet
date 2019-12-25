@@ -164,20 +164,20 @@ contract_result call_contract_function_evaluator::apply(account_id_type caller, 
         {
             contract_private_data_size = _options->at("contract_private_data_size").as<uint64_t>(); 
         }
-        FC_ASSERT(sizeof(op_acd->contract_data) <= contract_private_data_size, "call_contract_function_evaluator::apply, the contract private data size is too large.");
+        FC_ASSERT(fc::raw::pack_size(op_acd->contract_data) <= contract_private_data_size, "call_contract_function_evaluator::apply, the contract private data size is too large.");
 
         if (_options->count("contract_total_data_size"))
         {
             contract_total_data_size = _options->at("contract_total_data_size").as<uint64_t>(); 
         }
-        FC_ASSERT(sizeof(contract.contract_data) <= contract_total_data_size, "call_contract_function_evaluator::apply, the contract total data size is too large.");
+        FC_ASSERT(fc::raw::pack_size(contract.contract_data) <= contract_total_data_size, "call_contract_function_evaluator::apply, the contract total data size is too large.");
 
         wlog("===================================================");
         wlog("contract_private_data_size:${data}", ("data", contract_private_data_size));
         wlog("contract_total_data_size:${data}", ("data", contract_total_data_size));
         wlog("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-        wlog("private_data_size:${data}", ("data", sizeof(op_acd->contract_data)));
-        wlog("total_data_size:${data}", ("data", sizeof(contract.contract_data)));
+        wlog("private_data_size:${data}", ("data", fc::raw::pack_size(op_acd->contract_data)));
+        wlog("total_data_size:${data}", ("data", fc::raw::pack_size(contract.contract_data)));
         wlog("===================================================");
         // wdump(("do_contract_function")(fc::time_point::now().time_since_epoch() - start));
         //start = fc::time_point::now().time_since_epoch();
