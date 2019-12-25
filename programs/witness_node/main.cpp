@@ -245,9 +245,10 @@ int main(int argc, char** argv)
       load_config_file( config_ini_path, cfg_options, options );
       fc::path log_cfg_ini_path = data_dir / "log_cfg.ini";
       load_log_config_file( log_cfg_ini_path );
-      node->initialize_db(data_dir, options);
       
       bpo::notify(options);
+      node->initialize_db(data_dir, options);
+
       node->initialize(options);
       node->initialize_plugins( options );
 
