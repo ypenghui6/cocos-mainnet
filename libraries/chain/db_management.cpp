@@ -50,7 +50,6 @@ database::database(const fc::path& data_dir, const boost::program_options::varia
 {
     _options = &options;
           
-    auto _options = &options;
     auto max_market = _options->at("max-order-his-seconds-per-market").as<uint32_t>();
     auto contract_private_data_size = _options->at("contract_private_data_size").as<uint64_t>();
     wlog("------------------------------------------------------- ${test}",("test", max_market));

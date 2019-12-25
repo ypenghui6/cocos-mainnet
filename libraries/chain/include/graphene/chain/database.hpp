@@ -339,6 +339,11 @@ class database : public db::object_database
     template <typename EvaluatorType>
     void register_evaluator() //  注册验证模块
     {
+        auto max_market = _options->at("max-order-his-seconds-per-market").as<uint32_t>();
+        auto contract_private_data_size = _options->at("contract_private_data_size").as<uint64_t>();
+        wlog("------------------------------------------------------- ${test}",("test", max_market));
+        wlog("------------------------------------------------------- ${test}",("test", contract_private_data_size));
+
         _operation_evaluators[operation::tag<typename EvaluatorType::operation_type>::value].reset(new op_evaluator_impl<EvaluatorType>(_options));
     }
 
