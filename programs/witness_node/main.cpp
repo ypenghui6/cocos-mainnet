@@ -249,8 +249,10 @@ int main(int argc, char** argv)
       bpo::notify(options);
       
       auto _options = &options;
-      wlog("------------------------------------------------------- ${test}",("test", _options->at("max-order-his-seconds-per-market").as<uint64_t>()));
-      wlog("------------------------------------------------------- ${test}",("test", _options->at("contract_private_data_size").as<uint64_t>()));
+      auto max_market = _options->at("max-order-his-seconds-per-market").as<uint64_t>();
+      auto contract_private_data_size = _options->at("contract_private_data_size").as<uint64_t>();
+      wlog("------------------------------------------------------- ${test}",("test", max_market));
+      wlog("------------------------------------------------------- ${test}",("test", contract_private_data_size));
 
       node->initialize_db(data_dir, options);
 
