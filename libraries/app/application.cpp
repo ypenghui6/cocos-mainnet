@@ -1026,7 +1026,7 @@ void application::set_program_options(boost::program_options::options_descriptio
 void application::initialize_db(const fc::path &data_dir, const boost::program_options::variables_map &options)
 {
   my->_data_dir = data_dir;
-  my->_chain_db=std::make_shared<chain::database>( my->_data_dir, options);
+  my->_chain_db=std::make_shared<chain::database>(my->_data_dir, options);
 }
 
 void application::initialize(const boost::program_options::variables_map &options)
