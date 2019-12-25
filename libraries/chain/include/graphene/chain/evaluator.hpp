@@ -140,8 +140,8 @@ class op_evaluator_impl : public op_evaluator
 {
   public:
     const boost::program_options::variables_map *_options = nullptr;                                                 
-    op_evaluator_impl(const boost::program_options::variables_map &options):_options(&options){
-      auto _options = &options;
+    op_evaluator_impl(const boost::program_options::variables_map *options):_options(options){
+      // auto _options = options;
       if(_options != nullptr && _options->count("contract_private_data_size")){
         wlog("--------------------------7777777----------------------------- ");
         wlog("--------------------------7777777----------------------------- ");
