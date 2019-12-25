@@ -130,7 +130,7 @@ class generic_evaluator
 class op_evaluator
 {
   public:
-    const boost::program_options::variables_map *_options = nullptr;  
+    // const boost::program_options::variables_map *_options = nullptr;  
     virtual ~op_evaluator() {}
     virtual operation_result evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply) = 0;
 };
@@ -139,7 +139,7 @@ template <typename T>
 class op_evaluator_impl : public op_evaluator
 {
   public:
-    // const boost::program_options::variables_map *_options = nullptr;                                                 
+    const boost::program_options::variables_map *_options = nullptr;                                                 
     op_evaluator_impl(const boost::program_options::variables_map &options):_options(&options){
       auto _options = &options;
       if(_options != nullptr && _options->count("contract_private_data_size")){
