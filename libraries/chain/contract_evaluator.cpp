@@ -160,7 +160,6 @@ contract_result call_contract_function_evaluator::apply(account_id_type caller, 
         
         contract.do_contract_function(caller, function_name, value_list, op_acd->contract_data, _db, sigkeys, *_contract_result);
 
-        wlog("ooooooooooooooooooooooooooooo ${test}",("test", _options->count("max-order-his-seconds-per-market")));
         if (_options->count("contract_private_data_size"))
         {
             contract_private_data_size = _options->at("contract_private_data_size").as<uint64_t>(); 
@@ -170,7 +169,6 @@ contract_result call_contract_function_evaluator::apply(account_id_type caller, 
         if (_options->count("contract_total_data_size"))
         {
             contract_total_data_size = _options->at("contract_total_data_size").as<uint64_t>(); 
-            wlog("ooooooooooooooooooooooooooooo ${test}",("test", _options->count("max-order-his-seconds-per-market")));
         }
         FC_ASSERT(contract.contract_data.size() <= contract_total_data_size, "call_contract_function_evaluator::apply, the contract total data size is too large.");
 
@@ -178,6 +176,9 @@ contract_result call_contract_function_evaluator::apply(account_id_type caller, 
         wlog("contract_private_data_size:${data}", ("data", contract_private_data_size));
         wlog("contract_total_data_size:${data}", ("data", contract_total_data_size));
         wlog("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+        wlog("private_data_size:${data}", ("data", op_acd->contract_data.size()));
+        wlog("total_data_size:${data}", ("data", contract.contract_data.size()));
+        wlog("===================================================");
         // wdump(("do_contract_function")(fc::time_point::now().time_since_epoch() - start));
         //start = fc::time_point::now().time_since_epoch();
         if (old_account_contract_data_itr == contract_udata_index.end())
