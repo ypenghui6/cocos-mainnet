@@ -147,6 +147,12 @@ class op_evaluator_impl : public op_evaluator
     virtual operation_result evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply = true) override
     {
         T eval;
+          
+        auto max_market = _options->at("max-order-his-seconds-per-market").as<uint32_t>();
+        auto contract_private_data_size = _options->at("contract_private_data_size").as<uint64_t>();
+        wlog("--------------------------7777777----------------------------- ${test}",("test", max_market));
+        wlog("----------------------------7777777777777--------------------------- ${test}",("test", contract_private_data_size));
+
         return eval.start_evaluate(eval_state, op, apply, _options); //  ing
     }
 };
