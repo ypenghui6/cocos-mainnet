@@ -138,7 +138,8 @@ class op_evaluator
 template <typename T>
 class op_evaluator_impl : public op_evaluator
 {
-  public:                                                 
+  public:
+    // const boost::program_options::variables_map *_options = nullptr;                                                 
     op_evaluator_impl(const boost::program_options::variables_map &options):_options(&options){
       auto _options = &options;
       if(_options != nullptr && _options->count("contract_private_data_size")){
