@@ -1023,8 +1023,9 @@ void application::set_program_options(boost::program_options::options_descriptio
 }
 void application::initialize_db(const fc::path &data_dir, const boost::program_options::variables_map &options)
 {
-  wlog("------------------------------------------------------- ${test}",("test", options->count("max-order-his-seconds-per-market")));
-  wlog("------------------------------------------------------- ${test}",("test", options->count("contract_private_data_size")));
+  _options = &options
+  wlog("------------------------------------------------------- ${test}",("test", _options->count("max-order-his-seconds-per-market")));
+  wlog("------------------------------------------------------- ${test}",("test", _options->count("contract_private_data_size")));
 
   my->_data_dir = data_dir;
   my->_chain_db=std::make_shared<chain::database>( my->_data_dir, options);
