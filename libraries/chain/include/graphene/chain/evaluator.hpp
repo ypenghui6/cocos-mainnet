@@ -93,7 +93,6 @@ class generic_evaluator
     operation_fee_visitor fee_visitor;
 
     const boost::program_options::variables_map *_options = nullptr;
-    //void set_option(const boost::program_options::variables_map &options);
     //void check_required_authorities(const operation& op);
   protected:
     /**
