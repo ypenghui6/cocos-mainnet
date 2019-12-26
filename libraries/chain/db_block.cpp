@@ -41,7 +41,6 @@
 #include <graphene/chain/temporary_authority.hpp>
 
 #include <fc/smart_ref_impl.hpp>
-#include <graphene/chain/contract_evaluator.hpp>
 //#include <threadpool/threadpool.hpp>
 //using namespace boost::threadpool;
 
@@ -653,11 +652,6 @@ processed_transaction database::apply_transaction(const signed_transaction &trx,
   });
   return result;
 }
-
-// void database::set_option(const boost::program_options::variables_map &options)
-// {
-//   _options = &options;
-// }
 
 processed_transaction database::_apply_transaction(const signed_transaction &trx, transaction_apply_mode &run_mode, bool only_try_permissions)
 {

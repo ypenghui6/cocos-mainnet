@@ -213,7 +213,6 @@ class database : public db::object_database
     void set_concerned_candidates(const flat_set<vote_id_type> candidates ){concerned_candidates=candidates; }
     void set_message_cache_size_limit(uint16_t message_cache_size_limit);
     void set_deduce_in_verification_mode(bool flag){deduce_in_verification_mode=flag;}
-//     void set_option(const boost::program_options::variables_map &options);
 
     // 执行定时任务
     fc::signal<void(const uint32_t participating, bool maybe_allow_transaction)> allowe_continue_transaction;
@@ -339,11 +338,6 @@ class database : public db::object_database
     template <typename EvaluatorType>
     void register_evaluator() //  注册验证模块
     {
-        auto max_market = _options->at("max-order-his-seconds-per-market").as<uint32_t>();
-        auto contract_private_data_size = _options->at("contract_private_data_size").as<uint64_t>();
-        wlog("------------------------------------------------------- ${test}",("test", max_market));
-        wlog("------------------------------------------------------- ${test}",("test", contract_private_data_size));
-
         _operation_evaluators[operation::tag<typename EvaluatorType::operation_type>::value].reset(new op_evaluator_impl<EvaluatorType>(_options));
     }
 

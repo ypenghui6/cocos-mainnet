@@ -209,10 +209,5 @@ void generic_evaluator::db_adjust_balance(const account_id_type &fee_payer, asse
   db().adjust_balance(fee_payer, fee_from_account);
 }
 
-// generic_evaluator::set_option(const boost::program_options::variables_map &options)
-// {
-//     _options = &options;
-// }
-
 } // namespace chain
 } // namespace graphene
