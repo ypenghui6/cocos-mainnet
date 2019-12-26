@@ -130,7 +130,6 @@ class generic_evaluator
 class op_evaluator
 {
   public:
-    // const boost::program_options::variables_map *_options = nullptr;  
     virtual ~op_evaluator() {}
     virtual operation_result evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply) = 0;
 };
