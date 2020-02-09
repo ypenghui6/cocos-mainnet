@@ -316,6 +316,7 @@ class database : public db::object_database
     const dynamic_global_property_object &get_dynamic_global_properties() const;
     const node_property_object &get_node_properties() const;
     const fee_schedule &current_fee_schedule() const;
+    const extensions_type& current_parameters_extensions()const;
 
     time_point_sec head_block_time() const;
     uint32_t head_block_num() const;
