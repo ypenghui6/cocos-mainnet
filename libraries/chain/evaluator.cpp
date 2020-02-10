@@ -88,8 +88,7 @@ operation_result generic_evaluator::start_evaluate(transaction_evaluation_state 
             FC_ASSERT(core_fee_paid.value < db().get_global_properties().parameters.current_fees->maximun_handling_fee);
           }
           if (op.which() == operation::tag<vesting_balance_withdraw_operation>::value){
-            const auto &opp = op.get<typename DerivedEvaluator::operation_type>();
-            static_cast<graphene::chain::vesting_balance_withdraw_evaluator *>(this)->pay_fee_for_gas(opp);
+            static_cast<graphene::chain::vesting_balance_withdraw_evaluator *>(this)->pay_fee_for_gas(op);
           }
         }
         catch (fc::exception &e)
@@ -135,8 +134,7 @@ operation_result generic_evaluator::start_evaluate(transaction_evaluation_state 
         FC_ASSERT(core_fee_paid.value < db().get_global_properties().parameters.current_fees->maximun_handling_fee);
       }
       if (op.which() == operation::tag<vesting_balance_withdraw_operation>::value){
-        const auto &opp = op.get<typename DerivedEvaluator::operation_type>();
-        static_cast<graphene::chain::vesting_balance_withdraw_evaluator *>(this)->pay_fee_for_gas(opp);
+        static_cast<graphene::chain::vesting_balance_withdraw_evaluator *>(this)->pay_fee_for_gas(op);
       }
     }
     pay_fee_for_operation(op);

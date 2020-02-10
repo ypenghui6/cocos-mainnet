@@ -138,9 +138,11 @@ void_result vesting_balance_withdraw_evaluator::do_apply( const vesting_balance_
    return void_result();
 } FC_CAPTURE_AND_RETHROW( (op) ) }
 
-void vesting_balance_withdraw_evaluator::pay_fee_for_gas(const vesting_balance_withdraw_operation& op){
-    if(op.amount.asset_id == GRAPHENE_ASSET_GAS){
-       core_fee_paid = calculate_fee(op);
+void vesting_balance_withdraw_evaluator::pay_fee_for_gas( const operation& op )
+{
+    const auto &opp = op.get<typename DerivedEvaluator::operation_type>();
+    if(opp.amount.asset_id == GRAPHENE_ASSET_GAS){
+       core_fee_paid = calculate_fee(opp);
     }
 }
 
