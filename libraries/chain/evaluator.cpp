@@ -33,6 +33,7 @@
 #include <graphene/chain/committee_member_object.hpp>
 #include <graphene/chain/market_evaluator.hpp>
 #include <graphene/chain/contract_evaluator.hpp>
+#include <graphene/chain/vesting_balance_evaluator.hpp>
 #include <graphene/chain/protocol/fee_schedule.hpp>
 /***************************nico add************************/
 #include <boost/thread/thread.hpp>
