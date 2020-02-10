@@ -154,7 +154,9 @@ asset vesting_balance_withdraw_evaluator::calculate_fee( const operation& op, co
    auto base_value = vesting_balance_withdraw_default_fee;
    if(extensions.size() > 0 ){
       base_value = strtoull(db().current_parameters_extensions()[0].c_str(), NULL, 0);
+      wlog("---------------------------777777777777777777777 ${x}", ("x", base_value));
    }
+   wlog("---------------------------88888888888888888 ${x}", ("x", base_value));
 
    //auto base_value = op.visit( calc_fee_visitor( *this, op ) ); //  calc_fee_visitor 依次 调用 fee_schedule -> fee_helper ->  Operation::fee_parameters_type
    auto scaled = fc::uint128(base_value) * GRAPHENE_100_PERCENT;   // 比例
