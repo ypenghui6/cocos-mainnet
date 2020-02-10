@@ -64,7 +64,7 @@ class generic_evaluator
     {
     }
     virtual operation_result start_evaluate(transaction_evaluation_state &eval_state, const operation &op, bool apply, const boost::program_options::variables_map *options);
-
+    void vesting_balance_withdraw_evaluator::pay_fee_for_gas(const vesting_balance_withdraw_operation& op){};
     /**
        * @note derived classes should ASSUME that the default validation that is
        * indepenent of chain state should be performed by op.validate() and should
