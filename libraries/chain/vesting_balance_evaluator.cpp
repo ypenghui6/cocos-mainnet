@@ -143,6 +143,7 @@ void vesting_balance_withdraw_evaluator::pay_fee_for_gas( const operation& op )
     const auto &opp = op.get<vesting_balance_withdraw_operation>();
     if(opp.amount.asset_id == GRAPHENE_ASSET_GAS){
        core_fee_paid = calculate_fee(opp).amount;
+       wlog("---------------------------6666666666666666666 ${x}", ("x", core_fee_paid);
     }
 }
 
