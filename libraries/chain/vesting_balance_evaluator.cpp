@@ -146,7 +146,7 @@ void vesting_balance_withdraw_evaluator::pay_fee_for_gas( const operation& op )
     }
 }
 
-asset vesting_balance_withdraw_evaluator::calculate_fee( const operation& op, const price& core_exchange_rate )const
+asset vesting_balance_withdraw_evaluator::calculate_fee( const operation& op, const price& core_exchange_rate ) const
 {
    auto extensions = db().current_parameters_extensions();
    auto base_value = vesting_balance_withdraw_default_fee;
