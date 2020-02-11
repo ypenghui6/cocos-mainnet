@@ -374,10 +374,6 @@ void database::init_genesis(const genesis_state_type &genesis_state)
         assert(gas_asset.id == GRAPHENE_ASSET_GAS);
         chain_id_type chain_id = genesis_state.compute_chain_id();
 
-        if(!genesis_state.initial_parameters.extensions.empty())
-        {
-            wlog("---------------------------11111111111111111111111111111 ${x}", ("x", genesis_state.initial_parameters.extensions[0]));
-        }
         // Create global properties
         create<global_property_object>([&](global_property_object &p) {
             p.parameters = genesis_state.initial_parameters; // create

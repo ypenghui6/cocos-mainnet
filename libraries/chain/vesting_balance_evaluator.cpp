@@ -144,7 +144,6 @@ void vesting_balance_withdraw_evaluator::pay_fee_for_gas( const operation& op )
     const auto &opp = op.get<vesting_balance_withdraw_operation>();
     if(opp.amount.asset_id == GRAPHENE_ASSET_GAS){
        core_fee_paid = calculate_fee(opp).amount;
-       wlog("---------------------------6666666666666666666 ${x}", ("x", core_fee_paid));
     }
 }
 
@@ -159,10 +158,8 @@ asset vesting_balance_withdraw_evaluator::calculate_fee( const operation& op, co
       if( var_obj.contains( "vesting_balance_withdraw_fee" ) )
       {
          base_value = var_obj["vesting_balance_withdraw_fee"].as_int64();
-         wlog("---------------------------777777777777777777777 ${x}", ("x", base_value));
       }
    }
-   wlog("---------------------------88888888888888888 ${x}", ("x", base_value));
 
    //auto base_value = op.visit( calc_fee_visitor( *this, op ) ); //  calc_fee_visitor 依次 调用 fee_schedule -> fee_helper ->  Operation::fee_parameters_type
    auto scaled = fc::uint128(base_value) * GRAPHENE_100_PERCENT;   // 比例
