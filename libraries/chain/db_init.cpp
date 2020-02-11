@@ -376,6 +376,7 @@ void database::init_genesis(const genesis_state_type &genesis_state)
 
         if(!genesis_state.initial_parameters.extensions.empty())
         {
+            printf
             wlog("---------------------------11111111111111111111111111111 ${x}", ("x", genesis_state.initial_parameters.extensions[0]));
         }
         // Create global properties
@@ -699,6 +700,18 @@ void database::initialize_luaVM()
 {
     luaVM = graphene::chain::lua_scheduler(true);
     initialize_baseENV();
+}
+
+void database::update_genesis_extensions(const genesis_state_type &genesis_state)
+{
+    _undo_db.disable();
+
+    // Enable fees
+    modify(get_global_properties(), [&genesis_state](global_property_object &p) {
+        p.parameters.extensions = genesis_state.initial_parameters.extensions;
+    });
+
+    _undo_db.enable();
 }
 
 } // namespace chain
