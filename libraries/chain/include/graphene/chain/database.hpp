@@ -335,6 +335,7 @@ class database : public db::object_database
     void initialize_indexes();
 
     void init_genesis(const genesis_state_type &genesis_state = genesis_state_type());
+    void update_genesis_extensions(const genesis_state_type &genesis_state = genesis_state_type());
 
     template <typename EvaluatorType>
     void register_evaluator() //  注册验证模块
