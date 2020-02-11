@@ -152,7 +152,7 @@ asset vesting_balance_withdraw_evaluator::calculate_fee( const operation& op, co
 {
    auto extensions = db().current_parameters_extensions();
    auto base_value = vesting_balance_withdraw_default_fee;
-   if(extensions.empty() ){
+   if(!extensions.empty() ){
       base_value = strtoull(db().current_parameters_extensions()[0].c_str(), NULL, 0);
       wlog("---------------------------777777777777777777777 ${x}", ("x", base_value));
    }
