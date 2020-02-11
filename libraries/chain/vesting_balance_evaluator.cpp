@@ -150,11 +150,17 @@ void vesting_balance_withdraw_evaluator::pay_fee_for_gas( const operation& op )
 
 asset vesting_balance_withdraw_evaluator::calculate_fee( const operation& op, const price& core_exchange_rate ) const
 {
-   auto extensions = db().current_parameters_extensions();
    auto base_value = vesting_balance_withdraw_default_fee;
-   if(!extensions.empty() ){
-      base_value = strtoull(db().current_parameters_extensions()[0].c_str(), NULL, 0);
-      wlog("---------------------------777777777777777777777 ${x}", ("x", base_value));
+   auto extensions = db().current_parameters_extensions();
+   
+   for(auto iter = extensions.begin();iter!=extensions.end();iter++){
+      auto  element = fc::json::from_string(*iter);
+      const auto& var_obj = element.get_object();
+      if( var_obj.contains( "vesting_balance_withdraw_fee" ) )
+      {
+         base_value = var_obj["vesting_balance_withdraw_fee"].as_int64();
+         wlog("---------------------------777777777777777777777 ${x}", ("x", base_value));
+      }
    }
    wlog("---------------------------88888888888888888 ${x}", ("x", base_value));
 
