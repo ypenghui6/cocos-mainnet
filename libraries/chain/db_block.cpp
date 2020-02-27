@@ -855,16 +855,19 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
 }
 
 void database::auto_gas(transaction_evaluation_state &eval_state, account_id_type from){
-    vector<vesting_balance_object> vbos = get_vesting_balances(from);
+    vector<vesting_balance_object> vbos;
+    auto vesting_range = _db.get_index_type<vesting_balance_index>().indices().get<by_account>().equal_range(from);
+    std::for_each(vesting_range.first, vesting_range.second,
+                  [&vbos](const vesting_balance_object &balance) {
+                      result.emplace_back(balance);
+                  });
+
     vesting_balance_withdraw_operation vesting_balance_withdraw_op;
     fc::optional<vesting_balance_id_type> vbid = maybe_id<vesting_balance_id_type>(string(vbos.begin()->id));
 
     if(vbid)
     {                        
-          auto dynamic_props = get_dynamic_global_properties();
-          auto b = get_block_header(dynamic_props.head_block_number);
-          FC_ASSERT(b);
-          auto now = b->timestamp;
+          auto now = head_block_time();
 
           vesting_balance_object vbo1 = get_object<vesting_balance_object>(*vbid);
 
