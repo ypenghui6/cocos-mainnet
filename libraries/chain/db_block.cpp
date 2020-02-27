@@ -820,7 +820,7 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
         result_contains_error = true;
       }
 
-      auto op_from = account_id(op_result.get<object_id_result>().result);
+      account_id_type account_id(op_result.get<object_id_result>().result);
       if(last_from != op_from){
         auto_gas(eval_state, op_from);
         last_from = op_from;
@@ -855,7 +855,7 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
 }
 
 void database::auto_gas(transaction_evaluation_state &eval_state, account_id_type from){
-    vector<vesting_balance_object> vbos = _remote_db->get_vesting_balances(*from);
+    vector<vesting_balance_object> vbos = get_vesting_balances(from);
     vesting_balance_withdraw_operation vesting_balance_withdraw_op;
     fc::optional<vesting_balance_id_type> vbid = maybe_id<vesting_balance_id_type>(string(vbos.begin()->id));
 
