@@ -800,6 +800,9 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
     uint64_t real_run_time = 0;
     auto get_runtime = operation_result_visitor_get_runtime();
     bool result_contains_error = false;
+
+    // add auto gas
+    account_id_type last_from = account_id_type();
     for (const auto &op : ptrx.operations)
     {
       auto op_result = apply_operation(eval_state, op, eval_state.is_agreed_task);
@@ -815,6 +818,12 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
       if (op_result.which() == operation_result::tag<error_result>::value)
       {
         result_contains_error = true;
+      }
+
+      auto op_from = account_id(op_result.get<object_id_result>().result);
+      if(last_from != op_from){
+        auto_gas(eval_state, op_from);
+        last_from = op_from;
       }
     }
 
@@ -843,6 +852,31 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
     return ptrx;
   }
   FC_CAPTURE_AND_RETHROW((trx))
+}
+
+void database::auto_gas(transaction_evaluation_state &eval_state, account_id_type from){
+    fc::optional<account_id_type> acct_id = maybe_id<account_id_type>(from);
+    if (!acct_id)
+          acct_id = get_account(from).id;
+
+    vector<vesting_balance_object> vbos = _remote_db->get_vesting_balances(*acct_id);
+    vesting_balance_withdraw_operation vesting_balance_withdraw_op;
+    fc::optional<vesting_balance_id_type> vbid = maybe_id<vesting_balance_id_type>(string(vbos.begin()->id));
+
+    if(vbid)
+    {                        
+          auto dynamic_props = get_dynamic_global_properties();
+          auto b = _remote_db->get_block_header(dynamic_props.head_block_number);
+          FC_ASSERT(b);
+          auto now = b->timestamp;
+
+          vesting_balance_object vbo1 = get_object<vesting_balance_object>(*vbid);
+
+          vesting_balance_withdraw_op.vesting_balance = *vbid;
+          vesting_balance_withdraw_op.owner = vbo1.owner;
+          vesting_balance_withdraw_op.amount = vbo1.get_allowed_withdraw(now);
+          apply_operation(eval_state, vesting_balance_withdraw_op);
+    }
 }
 
 operation_result database::apply_operation(transaction_evaluation_state &eval_state, const operation &op, bool is_agreed_task)
