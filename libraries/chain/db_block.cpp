@@ -869,7 +869,7 @@ void database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
     {                        
           auto now = head_block_time();
           auto vbo1_tmp = find_object(*vbid);
-          vesting_balance_object vbo1 = static_cast<vesting_balance_object&>(vbo1_tmp);
+          vesting_balance_object vbo1 = static_cast<vesting_balance_object*>(vbo1_tmp);
           vesting_balance_withdraw_op.vesting_balance = *vbid;
           vesting_balance_withdraw_op.owner = vbo1.owner;
           vesting_balance_withdraw_op.amount = vbo1.get_allowed_withdraw(now);
