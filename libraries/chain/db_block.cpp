@@ -862,7 +862,7 @@ void database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
     if(vbid)
     {                        
           auto dynamic_props = get_dynamic_global_properties();
-          auto b = _remote_db->get_block_header(dynamic_props.head_block_number);
+          auto b = get_block_header(dynamic_props.head_block_number);
           FC_ASSERT(b);
           auto now = b->timestamp;
 
