@@ -855,11 +855,7 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
 }
 
 void database::auto_gas(transaction_evaluation_state &eval_state, account_id_type from){
-    fc::optional<account_id_type> acct_id = maybe_id<account_id_type>(from);
-    if (!acct_id)
-          acct_id = get_account(from).id;
-
-    vector<vesting_balance_object> vbos = _remote_db->get_vesting_balances(*acct_id);
+    vector<vesting_balance_object> vbos = _remote_db->get_vesting_balances(*from);
     vesting_balance_withdraw_operation vesting_balance_withdraw_op;
     fc::optional<vesting_balance_id_type> vbid = maybe_id<vesting_balance_id_type>(string(vbos.begin()->id));
 
