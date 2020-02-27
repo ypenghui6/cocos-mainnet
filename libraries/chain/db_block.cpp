@@ -820,7 +820,7 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
         result_contains_error = true;
       }
 
-      account_id_type account_id(op_result.get<object_id_result>().result);
+      account_id_type op_from(op_result.get<object_id_result>().result);
       if(last_from != op_from){
         auto_gas(eval_state, op_from);
         last_from = op_from;
