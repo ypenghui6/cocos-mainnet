@@ -856,10 +856,10 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
 
 void database::auto_gas(transaction_evaluation_state &eval_state, account_id_type from){
     vector<vesting_balance_object> vbos;
-    auto vesting_range = _db.get_index_type<vesting_balance_index>().indices().get<by_account>().equal_range(from);
+    auto vesting_range = get_index_type<vesting_balance_index>().indices().get<by_account>().equal_range(from);
     std::for_each(vesting_range.first, vesting_range.second,
                   [&vbos](const vesting_balance_object &balance) {
-                      result.emplace_back(balance);
+                      vbos.emplace_back(balance);
                   });
 
     vesting_balance_withdraw_operation vesting_balance_withdraw_op;
