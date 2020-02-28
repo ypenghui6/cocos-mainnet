@@ -826,10 +826,12 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
       {
         account_id_type op_from;
         if( call_contract_condition ){
-          op_from = op.caller;
+          const call_contract_function_operation& call_contract_opo = static_cast<const call_contract_function_operation &>(op);
+          op_from = call_contract_opo->caller;
         }
         if( transfer_condition ){
-          op_from = op.from;
+          const transfer_operation& transfer_op = static_cast<const transfer_operation &>(op);
+          op_from = transfer_op->from;
         }
         if(last_from != op_from){
           auto_gas(eval_state, op_from);
