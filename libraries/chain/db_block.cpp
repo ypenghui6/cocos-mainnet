@@ -895,7 +895,7 @@ bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
             eval_state.operation_results.emplace_back(op_result);
           }
     }
-    return result_contains_error
+    return result_contains_error;
 }
 
 operation_result database::apply_operation(transaction_evaluation_state &eval_state, const operation &op, bool is_agreed_task)
