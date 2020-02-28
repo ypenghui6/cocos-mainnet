@@ -832,7 +832,7 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
           op_from = op.get<transfer_operation>().from;
         }
         if(last_from != op_from){
-          auto_gas(eval_state, op_from);
+          result_contains_error = auto_gas(eval_state, op_from);
           last_from = op_from;
         }
       }
@@ -865,8 +865,9 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
   FC_CAPTURE_AND_RETHROW((trx))
 }
 
-void database::auto_gas(transaction_evaluation_state &eval_state, account_id_type from){
+bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_type from){
     vector<vesting_balance_object> vbos;
+    bool result_contains_error = false;
     auto vesting_range = get_index_type<vesting_balance_index>().indices().get<by_account>().equal_range(from);
     std::for_each(vesting_range.first, vesting_range.second,
                   [&vbos](const vesting_balance_object &balance) {
@@ -886,9 +887,15 @@ void database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
           vesting_balance_withdraw_op.amount = vbo1->get_allowed_withdraw(now);
           if( vesting_balance_withdraw_op.amount > asset(10000, asset_id_type(1)) )
           {
-            apply_operation(eval_state, vesting_balance_withdraw_op);
+            auto op_result = apply_operation(eval_state, vesting_balance_withdraw_op);
+            if (op_result.which() == operation_result::tag<error_result>::value)
+            {
+              result_contains_error = true;
+            }
+            eval_state.operation_results.emplace_back(op_result);
           }
     }
+    return result_contains_error
 }
 
 operation_result database::apply_operation(transaction_evaluation_state &eval_state, const operation &op, bool is_agreed_task)
