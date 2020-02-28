@@ -820,10 +820,21 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
         result_contains_error = true;
       }
 
-      account_id_type op_from(op_result.get<object_id_result>().result);
-      if(last_from != op_from){
-        auto_gas(eval_state, op_from);
-        last_from = op_from;
+      auto call_contract_condition = (op.which() == operation::tag<call_contract_function_operation>::value && op_result.which() == operation_result::tag<contract_result>::value);
+      auto transfer_condition = (op.which() == operation::tag<transfer_operation>::value && op_result.which() == operation_result::tag<void_result>::value);
+      if ( call_contract_condition ||  transfer_condition )
+      {
+        account_id_type op_from;
+        if( call_contract_condition ){
+          op_from = op.caller;
+        }
+        if( transfer_condition ){
+          op_from = op.from;
+        }
+        if(last_from != op_from){
+          auto_gas(eval_state, op_from);
+          last_from = op_from;
+        }
       }
     }
 
