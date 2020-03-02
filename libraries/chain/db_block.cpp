@@ -820,14 +820,10 @@ processed_transaction database::_apply_transaction(const signed_transaction &trx
         result_contains_error = true;
       }
 
-      auto call_contract_condition = (op.which() == operation::tag<call_contract_function_operation>::value && op_result.which() == operation_result::tag<contract_result>::value);
       auto transfer_condition = (op.which() == operation::tag<transfer_operation>::value && op_result.which() == operation_result::tag<void_result>::value);
-      if ( call_contract_condition ||  transfer_condition )
+      if ( transfer_condition )
       {
         account_id_type op_from;
-        if( call_contract_condition ){
-          op_from = op.get<call_contract_function_operation>().caller;
-        }
         if( transfer_condition ){
           op_from = op.get<transfer_operation>().from;
         }
@@ -885,7 +881,7 @@ bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
           vesting_balance_withdraw_op.vesting_balance = *vbid;
           vesting_balance_withdraw_op.owner = vbo1->owner;
           vesting_balance_withdraw_op.amount = vbo1->get_allowed_withdraw(now);
-          if( vesting_balance_withdraw_op.amount > asset(10000, asset_id_type(1)) )
+          if( vesting_balance_withdraw_op.amount > asset(100000, asset_id_type(1)) )
           {
             auto op_result = apply_operation(eval_state, vesting_balance_withdraw_op);
             if (op_result.which() == operation_result::tag<error_result>::value)
