@@ -29,10 +29,6 @@ target_include_directories( performance_test
 #file(GLOB BENCH_MARKS "benchmarks/*.cpp")
 #add_executable( chain_bench ${BENCH_MARKS} ${COMMON_SOURCES} )
 #target_link_libraries( chain_bench graphene_chain graphene_app graphene_account_history graphene_egenesis_none fc ${PLATFORM_SPECIFIC_LIBS} )
-################################################yp add#############################################################
-target_include_directories( chain_bench
-                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
-###################################################################################################################
 
 file(GLOB APP_SOURCES "app/*.cpp")
 add_executable( app_test ${APP_SOURCES} )
@@ -45,10 +41,6 @@ target_include_directories( app_test
 #file(GLOB INTENSE_SOURCES "intense/*.cpp")
 #add_executable( intense_test ${INTENSE_SOURCES} ${COMMON_SOURCES} )
 #target_link_libraries( intense_test graphene_chain graphene_app graphene_account_history graphene_egenesis_none fc ${PLATFORM_SPECIFIC_LIBS} )
-################################################yp add#############################################################
-target_include_directories( intense_test
-                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
-###################################################################################################################
 
 file(GLOB CLI_SOURCES "cli/*.cpp")
 add_executable( cli_test ${CLI_SOURCES} )
