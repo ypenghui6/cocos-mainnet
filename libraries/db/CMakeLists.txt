@@ -3,6 +3,10 @@ add_library( graphene_db undo_database.cpp index.cpp object_database.cpp ${HEADE
 target_link_libraries( graphene_db fc )
 target_include_directories( graphene_db PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
 target_include_directories( graphene_db PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../chain/include/" )
+################################################yp add#############################################################
+target_include_directories( graphene_db
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 install( TARGETS
    graphene_db
 
