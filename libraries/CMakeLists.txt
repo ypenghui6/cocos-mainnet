@@ -1,4 +1,6 @@
-add_subdirectory( fc )
+if(BUILD_FC)
+    add_subdirectory( fc )
+endif()    
 add_subdirectory( db )
 add_subdirectory( chain )
 add_subdirectory( egenesis )
