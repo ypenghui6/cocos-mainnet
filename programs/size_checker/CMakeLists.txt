@@ -5,7 +5,10 @@ endif()
 
 target_link_libraries( size_checker
                        PRIVATE graphene_chain graphene_egenesis_none fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-
+################################################yp add#############################################################
+target_include_directories( size_checker
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 install( TARGETS
    size_checker
 

@@ -23,7 +23,10 @@ target_link_libraries( witness_node PRIVATE
                               graphene_snapshot 
                               fc 
                               ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-
+################################################yp add#############################################################
+target_include_directories( witness_node
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 
 install( TARGETS
    witness_node

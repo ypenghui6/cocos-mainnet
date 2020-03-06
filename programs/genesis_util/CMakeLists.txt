@@ -6,7 +6,10 @@ endif()
 
 target_link_libraries( genesis_update
                        PRIVATE graphene_app graphene_chain graphene_egenesis_none fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-
+################################################yp add#############################################################
+target_include_directories( genesis_update
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 install( TARGETS
    genesis_update
 
@@ -19,7 +22,10 @@ add_executable( get_dev_key get_dev_key.cpp )
 
 target_link_libraries( get_dev_key
                        PRIVATE graphene_app graphene_chain graphene_egenesis_none graphene_utilities fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-
+################################################yp add#############################################################
+target_include_directories( get_dev_key
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 install( TARGETS
    get_dev_key
 
@@ -32,3 +38,7 @@ add_executable( convert_address convert_address.cpp )
 
 target_link_libraries( convert_address
                        PRIVATE graphene_chain fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
+################################################yp add#############################################################
+target_include_directories( convert_address
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################

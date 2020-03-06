@@ -9,6 +9,11 @@ endif()
 file(GLOB UNIT_TESTS "tests/*.cpp")
 add_executable( chain_test ${UNIT_TESTS} ${COMMON_SOURCES} )
 target_link_libraries( chain_test graphene_chain graphene_app graphene_witness graphene_account_history graphene_egenesis_none fc graphene_wallet ${PLATFORM_SPECIFIC_LIBS} )
+################################################yp add#############################################################
+target_include_directories( chain_test
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
+
 if(MSVC)
   set_source_files_properties( tests/serialization_tests.cpp PROPERTIES COMPILE_FLAGS "/bigobj" )
 endif(MSVC)
@@ -16,18 +21,34 @@ endif(MSVC)
 file(GLOB PERFORMANCE_TESTS "performance/*.cpp")
 add_executable( performance_test ${PERFORMANCE_TESTS} ${COMMON_SOURCES} )
 target_link_libraries( performance_test graphene_chain graphene_app graphene_witness graphene_account_history graphene_egenesis_none fc ${PLATFORM_SPECIFIC_LIBS} )
+################################################yp add#############################################################
+target_include_directories( performance_test
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 
 #file(GLOB BENCH_MARKS "benchmarks/*.cpp")
 #add_executable( chain_bench ${BENCH_MARKS} ${COMMON_SOURCES} )
 #target_link_libraries( chain_bench graphene_chain graphene_app graphene_account_history graphene_egenesis_none fc ${PLATFORM_SPECIFIC_LIBS} )
+################################################yp add#############################################################
+target_include_directories( chain_bench
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 
 file(GLOB APP_SOURCES "app/*.cpp")
 add_executable( app_test ${APP_SOURCES} )
 target_link_libraries( app_test graphene_app graphene_account_history graphene_witness graphene_snapshot graphene_delayed_node graphene_net graphene_chain graphene_egenesis_none fc ${PLATFORM_SPECIFIC_LIBS} )
+################################################yp add#############################################################
+target_include_directories( app_test
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 
 #file(GLOB INTENSE_SOURCES "intense/*.cpp")
 #add_executable( intense_test ${INTENSE_SOURCES} ${COMMON_SOURCES} )
 #target_link_libraries( intense_test graphene_chain graphene_app graphene_account_history graphene_egenesis_none fc ${PLATFORM_SPECIFIC_LIBS} )
+################################################yp add#############################################################
+target_include_directories( intense_test
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 
 file(GLOB CLI_SOURCES "cli/*.cpp")
 add_executable( cli_test ${CLI_SOURCES} )
@@ -35,6 +56,10 @@ if(WIN32)
    list(APPEND PLATFORM_SPECIFIC_LIBS ws2_32)
 endif()
 target_link_libraries( cli_test graphene_app graphene_wallet graphene_witness graphene_account_history graphene_net graphene_chain graphene_egenesis_none fc ${PLATFORM_SPECIFIC_LIBS} )
+################################################yp add#############################################################
+target_include_directories( cli_test
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 
 if(MSVC)
   set_source_files_properties( cli/main.cpp PROPERTIES COMPILE_FLAGS "/bigobj" )

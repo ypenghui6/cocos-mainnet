@@ -120,6 +120,11 @@ target_link_libraries( graphene_chain fc graphene_db  )
 target_include_directories( graphene_chain
                             PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_BINARY_DIR}/include" )
 
+################################################yp add#############################################################
+target_include_directories( graphene_chain
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
+
 ##############################################nico add####################################################################              
 target_link_libraries( graphene_chain  lua )
 target_include_directories( graphene_chain

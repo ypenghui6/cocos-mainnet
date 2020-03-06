@@ -7,12 +7,20 @@ add_library( graphene_egenesis_none
 target_link_libraries( graphene_egenesis_none graphene_chain fc )
 target_include_directories( graphene_egenesis_none
    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )
+################################################yp add#############################################################
+target_include_directories( graphene_egenesis_none
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 
 add_executable( embed_genesis
    embed_genesis.cpp
    )
 
 target_link_libraries( embed_genesis graphene_chain graphene_app graphene_egenesis_none fc  process_encryption)
+################################################yp add#############################################################
+target_include_directories( embed_genesis
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 
 set( embed_genesis_args
    -t "${CMAKE_CURRENT_SOURCE_DIR}/egenesis_brief.cpp.tmpl---${CMAKE_CURRENT_BINARY_DIR}/egenesis_brief.cpp"
@@ -44,6 +52,12 @@ add_library( graphene_egenesis_full  "${CMAKE_CURRENT_BINARY_DIR}/egenesis_full.
 
 target_link_libraries( graphene_egenesis_brief graphene_chain fc )
 target_link_libraries( graphene_egenesis_full graphene_chain fc )
+################################################yp add#############################################################
+target_include_directories( graphene_egenesis_brief
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+target_include_directories( graphene_egenesis_full
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )                            
+###################################################################################################################
 
 target_include_directories( graphene_egenesis_brief
    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" )

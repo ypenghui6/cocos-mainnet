@@ -5,7 +5,10 @@ endif()
 
 target_link_libraries( js_operation_serializer
                        PRIVATE graphene_app graphene_net graphene_chain graphene_egenesis_none graphene_utilities graphene_wallet fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-
+################################################yp add#############################################################
+target_include_directories( js_operation_serializer
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 install( TARGETS
    js_operation_serializer
 

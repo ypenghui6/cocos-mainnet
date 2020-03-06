@@ -11,7 +11,10 @@ endif()
 
 target_link_libraries( delayed_node
                        PRIVATE graphene_app graphene_account_history graphene_market_history graphene_delayed_node graphene_chain graphene_egenesis_full fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
-
+################################################yp add#############################################################
+target_include_directories( delayed_node
+                            PUBLIC "${CMAKE_SOURCE_DIR}/libraries/fc/include" )
+###################################################################################################################
 install( TARGETS
    delayed_node
 
