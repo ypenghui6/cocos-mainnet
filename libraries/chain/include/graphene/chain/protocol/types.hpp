@@ -37,6 +37,7 @@
 #include <fc/uint128.hpp>
 #include <fc/static_variant.hpp>
 #include <fc/smart_ref_fwd.hpp>
+#include <fc/crypto/pke.hpp>
 
 #include <memory>
 #include <vector>

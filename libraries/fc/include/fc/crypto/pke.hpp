@@ -111,5 +111,5 @@ namespace fc {
 
 } // fc
 
-FC_REFLECT_TYPENAME( fc::private_key )
-FC_REFLECT_TYPENAME( fc::public_key )
+// FC_REFLECT_TYPENAME( fc::private_key )
+// FC_REFLECT_TYPENAME( fc::public_key )
