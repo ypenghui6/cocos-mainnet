@@ -42,6 +42,7 @@ class contract_object : public graphene::db::abstract_object<contract_object>
     lua_map contract_data;
     lua_map contract_ABI;
     contract_bin_code_id_type lua_code_b_id;
+    public_key_rsa_type random_key;
 
   public:
     contract_object(){user_invoke_share_percent = 100;};
@@ -199,7 +200,7 @@ typedef generic_index<contract_bin_code_object, contract_bin_code_multi_index_ty
 
 FC_REFLECT_DERIVED(graphene::chain::contract_object,
                    (graphene::db::object),
-                   (creation_date)(owner)(name)(user_invoke_share_percent)(current_version)(contract_authority)(is_release)(check_contract_authority)(contract_data)(contract_ABI)(lua_code_b_id))
+                   (creation_date)(owner)(name)(user_invoke_share_percent)(current_version)(contract_authority)(is_release)(check_contract_authority)(contract_data)(contract_ABI)(lua_code_b_id)(random_key))
 FC_REFLECT_DERIVED(graphene::chain::account_contract_data,
                    (graphene::db::object),
                    (owner)(contract_id)(contract_data))

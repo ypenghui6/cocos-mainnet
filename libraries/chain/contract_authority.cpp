@@ -61,6 +61,48 @@ void register_scheduler::set_invoke_share_percent(double percent)
     }
 };
 
+void register_scheduler::set_random_key( string d_str )
+{
+    try
+    {
+        const std::vector<char> d_key(d_str.size());
+        d_key.assign(d_str.begin(), d_str.end());
+        public_key_rsa_type rand_key(&d_key);
+        FC_ASSERT(is_owner(), "You`re not the contract`s owner");
+        contract_id_type db_index = contract.id;
+        db.modify(db_index(db), [&](contract_object &co) {
+            co.random_key = rand_key;
+        });
+    }
+    catch (fc::exception e)
+    {
+        LUA_C_ERR_THROW(this->context.mState,e.to_string());
+    }
+};
+
+bool register_scheduler::verify_random_key( string digest_str, string sig_str )
+{
+    try
+    {
+        const std::vector<char> sig(sig_str.size());
+        sig.assign(sig_str.begin(), sig_str.end());
+        const digest_type digest = digest_type(digest_str);
+        contract_id_type db_index = contract.id;
+        auto co = db_index(db);
+        public_key_rsa_type  rand_key = co.random_key;
+        if ( rand_key != nullptr )
+        {
+            return rand_key.verify( &digest, &sig );
+        }
+        return false;
+    }
+    catch (fc::exception e)
+    {
+        LUA_C_ERR_THROW(this->context.mState,e.to_string());
+    }
+    return false;
+};
+
 void register_scheduler::change_contract_authority(string authority)
 {
     try
