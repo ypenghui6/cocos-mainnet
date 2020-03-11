@@ -330,7 +330,7 @@ typedef fc::sha256 tx_hash_type;
 typedef fc::ecc::compact_signature signature_type;
 typedef safe<int64_t> share_type;
 typedef uint16_t weight_type;
-typedef fc::detail::public_key public_key_rsa_type;
+typedef fc::public_key public_key_rsa_type;
 
 struct public_key_type
 {
