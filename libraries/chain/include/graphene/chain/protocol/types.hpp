@@ -436,6 +436,9 @@ void to_variant(const graphene::chain::public_key_rsa_type &var, fc::variant &vo
 void from_variant(const fc::variant &var, graphene::chain::public_key_rsa_type &vo);
 } // namespace fc
 
+FC_REFLECT(graphene::chain::public_key_rsa_type, (key_data))
+FC_REFLECT(graphene::chain::public_key_rsa_type::binary_key, (data)(check))
+
 FC_REFLECT(graphene::chain::public_key_type, (key_data))
 FC_REFLECT(graphene::chain::public_key_type::binary_key, (data)(check))
 FC_REFLECT(graphene::chain::extended_public_key_type, (key_data))
