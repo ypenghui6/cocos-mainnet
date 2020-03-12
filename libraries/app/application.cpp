@@ -341,6 +341,7 @@ public:
           std::string genesis_str;
           fc::read_file_contents(_options->at("genesis-json").as<boost::filesystem::path>(), genesis_str);
           genesis_state_type genesis = fc::json::from_string(genesis_str).as<genesis_state_type>();
+          ilog("-------------------- ${path}", ("path", genesis_str);
           if (_options->count("replay-blockchain"))
           {
             std::string replaces_str = "\"{\"vesting_balance_withdraw_fee\":\"6000\"}\"";
