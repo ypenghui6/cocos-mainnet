@@ -344,14 +344,14 @@ struct public_key_rsa_type
     public_key_rsa_type();
     public_key_rsa_type(const fc::public_key_data &data);
     public_key_rsa_type(const fc::public_key &pubkey);
-    explicit public_key_type(const std::string &base58str);
+    explicit public_key_rsa_type(const std::string &base58str);
     operator fc::public_key_data() const;
     operator fc::public_key() const;
     explicit operator std::string() const;
     friend bool operator==(const public_key_rsa_type &p1, const fc::public_key &p2);
     friend bool operator==(const public_key_rsa_type &p1, const public_key_rsa_type &p2);
     friend bool operator!=(const public_key_rsa_type &p1, const public_key_rsa_type &p2);
-}
+};
 
 struct public_key_type
 {
