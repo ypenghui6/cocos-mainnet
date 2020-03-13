@@ -345,7 +345,7 @@ public:
           {
             std::string replaces_str = "\"{\\\"vesting_balance_withdraw_fee\\\":\\\"6000\\\"}\"";;
             auto p = genesis_str.find(replaces_str);
-            genesis_str.replace(p, p.size(), "");
+            genesis_str.replace(p, replaces_str.size(), "");
             ilog("-------------------- ${path}", ("path", genesis_str));
           }
           //idump((genesis.initial_parameters.maximum_run_time_ratio));
