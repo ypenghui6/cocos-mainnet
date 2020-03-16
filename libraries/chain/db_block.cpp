@@ -871,10 +871,10 @@ bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
     vector<vesting_balance_object> vbos;
     bool result_contains_error = false;
     auto vesting_range = get_index_type<vesting_balance_index>().indices().get<by_account>().equal_range(from);
-    // std::for_each(vesting_range.first, vesting_range.second,
-    //               [&vbos](const vesting_balance_object &balance) {
-    //                   vbos.emplace_back(balance);
-    //               });
+    std::for_each(vesting_range.first, vesting_range.second,
+                  [&vbos](const vesting_balance_object &balance) {
+                      vbos.emplace_back(balance);
+                  });
 
     //  vesting_balance_withdraw_operation vesting_balance_withdraw_op;
     // fc::optional<vesting_balance_id_type> vbid = maybe_id<vesting_balance_id_type>(string(vbos.begin()->id));
