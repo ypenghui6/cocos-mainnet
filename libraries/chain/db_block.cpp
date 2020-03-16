@@ -889,7 +889,7 @@ bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
             vesting_balance_withdraw_op.vesting_balance = *vbid;
             vesting_balance_withdraw_op.owner = vbo1->owner;
             vesting_balance_withdraw_op.amount = vbo1->get_allowed_withdraw(now);
-            if( vesting_balance_withdraw_op.amount > asset(100000, asset_id_type(1)) )
+            if( vesting_balance_withdraw_op.amount.asset_id == asset_id_type(1) && vesting_balance_withdraw_op.amount > asset(100000, asset_id_type(1)) )
             {
               auto op_result = apply_operation(eval_state, vesting_balance_withdraw_op);
               if (op_result.which() == operation_result::tag<error_result>::value)
