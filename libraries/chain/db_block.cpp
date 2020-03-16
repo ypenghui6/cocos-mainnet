@@ -902,7 +902,6 @@ bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
               }
               catch (fc::assert_exception e)
               {
-                  continue;
               }FC_CAPTURE_AND_LOG((0))
             }
       }
