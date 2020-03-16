@@ -876,8 +876,8 @@ bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
                       vbos.emplace_back(balance);
                   });
 
-    //  vesting_balance_withdraw_operation vesting_balance_withdraw_op;
-    // fc::optional<vesting_balance_id_type> vbid = maybe_id<vesting_balance_id_type>(string(vbos.begin()->id));
+    vesting_balance_withdraw_operation vesting_balance_withdraw_op;
+    fc::optional<vesting_balance_id_type> vbid = maybe_id<vesting_balance_id_type>(string(vbos.begin()->id));
 
     //  if(vbid)
     // {                        
