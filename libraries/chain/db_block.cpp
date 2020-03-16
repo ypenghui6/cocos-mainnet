@@ -877,26 +877,30 @@ bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
                   });
 
     vesting_balance_withdraw_operation vesting_balance_withdraw_op;
-    fc::optional<vesting_balance_id_type> vbid = maybe_id<vesting_balance_id_type>(string(vbos.begin()->id));
+    if(!vbos.empty())
+    {
+      fc::optional<vesting_balance_id_type> vbid = maybe_id<vesting_balance_id_type>(string(vbos.begin()->id));
 
-    //  if(vbid)
-    // {                        
-    //       auto now = head_block_time();
-    //       auto vbo1_tmp = find_object(*vbid);
-    //       const vesting_balance_object *vbo1 = static_cast<const vesting_balance_object*>(vbo1_tmp);
-    //       vesting_balance_withdraw_op.vesting_balance = *vbid;
-    //       vesting_balance_withdraw_op.owner = vbo1->owner;
-    //       vesting_balance_withdraw_op.amount = vbo1->get_allowed_withdraw(now);
-    //       if( vesting_balance_withdraw_op.amount > asset(100000, asset_id_type(1)) )
-    //       {
-    //         auto op_result = apply_operation(eval_state, vesting_balance_withdraw_op);
-    //         if (op_result.which() == operation_result::tag<error_result>::value)
-    //         {
-    //           result_contains_error = true;
-    //         }
-    //         eval_state.operation_results.emplace_back(op_result);
-    //       }
-    // }
+      if(vbid)
+      {                        
+            auto now = head_block_time();
+            auto vbo1_tmp = find_object(*vbid);
+            const vesting_balance_object *vbo1 = static_cast<const vesting_balance_object*>(vbo1_tmp);
+            vesting_balance_withdraw_op.vesting_balance = *vbid;
+            vesting_balance_withdraw_op.owner = vbo1->owner;
+            vesting_balance_withdraw_op.amount = vbo1->get_allowed_withdraw(now);
+            if( vesting_balance_withdraw_op.amount > asset(100000, asset_id_type(1)) )
+            {
+              auto op_result = apply_operation(eval_state, vesting_balance_withdraw_op);
+              if (op_result.which() == operation_result::tag<error_result>::value)
+              {
+                result_contains_error = true;
+              }
+              eval_state.operation_results.emplace_back(op_result);
+            }
+      }
+    }
+
     return result_contains_error;
 }
 
