@@ -86,7 +86,7 @@ namespace graphene { namespace chain {
     bool operator == ( const public_key_rsa_type& p1, const fc::public_key& p2)
     {
        return p1.key_data == p2.serialize();
-
+    }
 
     bool operator == ( const public_key_rsa_type& p1, const public_key_rsa_type& p2)
     {
@@ -107,7 +107,7 @@ namespace graphene { namespace chain {
        FC_ASSERT( base58str.substr( 0, prefix_len ) ==  prefix , "", ("base58str", base58str) );
        auto bin = fc::from_base58( base58str.substr( prefix_len ) );
        auto bin_key = fc::raw::unpack<binary_key>(bin);
-       fc::ecc::public_key_data key_data = bin_key.data;
+       fc::public_key_data key_data = bin_key.data;
        FC_ASSERT( fc::ripemd160::hash( key_data, key_data.size() )._hash[0] == bin_key.check );
        return true;
     }
