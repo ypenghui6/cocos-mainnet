@@ -31,7 +31,6 @@
 
 namespace graphene { namespace chain {
 
-<<<<<<< Updated upstream
     public_key_rsa_type::public_key_rsa_type():key_data(){};
 
     public_key_rsa_type::public_key_rsa_type( const fc::public_key_data& data )
@@ -62,7 +61,7 @@ namespace graphene { namespace chain {
        auto bin = fc::from_base58( base58str.substr( prefix_len ) );
        auto bin_key = fc::raw::unpack<binary_key>(bin);
        key_data = bin_key.data;
-       FC_ASSERT( fc::ripemd160::hash( key_data.data, key_data.size() )._hash[0] == bin_key.check );
+       FC_ASSERT( fc::ripemd160::hash( key_data, key_data.size() )._hash[0] == bin_key.check );
     };
 
     public_key_rsa_type::operator fc::public_key_data() const
@@ -79,7 +78,7 @@ namespace graphene { namespace chain {
     {
        binary_key k;
        k.data = key_data;
-       k.check = fc::ripemd160::hash( k.data.data, k.data.size() )._hash[0];
+       k.check = fc::ripemd160::hash( k.data, k.data.size() )._hash[0];
        auto data = fc::raw::pack( k );
        return GRAPHENE_ADDRESS_PREFIX + fc::to_base58( data.data(), data.size() );
     }
@@ -109,7 +108,7 @@ namespace graphene { namespace chain {
        auto bin = fc::from_base58( base58str.substr( prefix_len ) );
        auto bin_key = fc::raw::unpack<binary_key>(bin);
        fc::ecc::public_key_data key_data = bin_key.data;
-       FC_ASSERT( fc::ripemd160::hash( key_data.data, key_data.size() )._hash[0] == bin_key.check );
+       FC_ASSERT( fc::ripemd160::hash( key_data, key_data.size() )._hash[0] == bin_key.check );
        return true;
     }
 
