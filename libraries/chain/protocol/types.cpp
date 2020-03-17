@@ -64,7 +64,7 @@ namespace graphene { namespace chain {
        FC_ASSERT( fc::ripemd160::hash( &key_data[0], key_data.size() )._hash[0] == bin_key.check );
     };
 
-    public_key_rsa_type::operator fc::public_key_data() const
+    public_key_rsa_type::operator fc::bytes() const
     {
        return key_data;
     };
