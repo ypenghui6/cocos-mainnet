@@ -15,7 +15,7 @@ namespace fc {
 
     typedef std::vector<char> bytes;
     typedef bytes             signature;
-    typedef std::vector<char> public_key_data;
+    typedef bytes             public_key_data;
 
     class public_key
     {

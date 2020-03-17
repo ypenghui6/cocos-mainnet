@@ -82,10 +82,6 @@ bool register_scheduler::verify_random_key( string digest_str, string sig_str )
 {
     try
     {
-        // std::vector<char> sig;
-        // sig.resize(sig_str.size()+1);
-        // sig.assign(sig_str.begin(), sig_str.end());
-        // const digest_type digest = digest_type(digest_str);
         contract_id_type db_index = contract.id;
         auto co = db_index(db);
         public_key_rsa_type  rand_key = co.random_key;
