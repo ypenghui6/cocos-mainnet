@@ -33,7 +33,7 @@ namespace graphene { namespace chain {
 
     public_key_rsa_type::public_key_rsa_type():key_data(){};
 
-    public_key_rsa_type::public_key_rsa_type( const fc::public_key_data& data )
+    public_key_rsa_type::public_key_rsa_type( const fc::bytes& data )
         :key_data( data ) {};
 
     public_key_rsa_type::public_key_rsa_type( const fc::public_key& pubkey )
@@ -107,7 +107,7 @@ namespace graphene { namespace chain {
        FC_ASSERT( base58str.substr( 0, prefix_len ) ==  prefix , "", ("base58str", base58str) );
        auto bin = fc::from_base58( base58str.substr( prefix_len ) );
        auto bin_key = fc::raw::unpack<binary_key>(bin);
-       fc::public_key_data key_data = bin_key.data;
+       fc::bytes key_data = bin_key.data;
        FC_ASSERT( fc::ripemd160::hash( &key_data[0], key_data.size() )._hash[0] == bin_key.check );
        return true;
     }

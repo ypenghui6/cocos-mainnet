@@ -338,11 +338,11 @@ struct public_key_rsa_type
     {
         binary_key() {}
         uint32_t check = 0;
-        fc::public_key_data data;
+        fc::bytes data;
     };
-    fc::public_key_data key_data;
+    fc::bytes key_data;
     public_key_rsa_type();
-    public_key_rsa_type(const fc::public_key_data &data);
+    public_key_rsa_type(const fc::bytes &data);
     public_key_rsa_type(const fc::public_key &pubkey);
     explicit public_key_rsa_type(const std::string &base58str);
     operator fc::public_key_data() const;
