@@ -31,6 +31,7 @@
 
 namespace graphene { namespace chain {
 
+<<<<<<< Updated upstream
     public_key_rsa_type::public_key_rsa_type():key_data(){};
 
     public_key_rsa_type::public_key_rsa_type( const fc::public_key_data& data )
@@ -86,7 +87,7 @@ namespace graphene { namespace chain {
     bool operator == ( const public_key_rsa_type& p1, const fc::public_key& p2)
     {
        return p1.key_data == p2.serialize();
-    }
+
 
     bool operator == ( const public_key_rsa_type& p1, const public_key_rsa_type& p2)
     {
