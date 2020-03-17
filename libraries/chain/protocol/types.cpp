@@ -112,6 +112,22 @@ namespace graphene { namespace chain {
        return true;
     }
 
+    bool public_key_rsa_type::verify( string digest_str, string sig_str )const
+    {
+      try
+      {
+         std::vector<char> sig;
+         sig.resize(sig_str.size()+1);
+         sig.assign(sig_str.begin(), sig_str.end());
+         const digest_type digest = digest_type(digest_str);
+         return fc::public_key( key_data ).verify(digest, sig);
+      }
+      catch( ... )
+      {
+      }
+      return false;
+    }
+
     // public_key_type
 
     public_key_type::public_key_type():key_data(){};
