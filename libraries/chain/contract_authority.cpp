@@ -82,7 +82,7 @@ bool register_scheduler::verify_random_key( string digest_str, string sig_str )
 {
     try
     {
-        const std::vector<char> sig;
+        std::vector<char> sig;
         sig.resize(sig_str.size()+1);
         sig.assign(sig_str.begin(), sig_str.end());
         const digest_type digest = digest_type(digest_str);
