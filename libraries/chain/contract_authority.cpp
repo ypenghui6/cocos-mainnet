@@ -65,9 +65,7 @@ void register_scheduler::set_random_key( string d_str )
 {
     try
     {
-        const std::vector<char> d_key(d_str.size());
-        d_key.assign(d_str.begin(), d_str.end());
-        public_key_rsa_type rand_key(&d_key);
+        public_key_rsa_type rand_key(d_str);
         FC_ASSERT(is_owner(), "You`re not the contract`s owner");
         contract_id_type db_index = contract.id;
         db.modify(db_index(db), [&](contract_object &co) {
