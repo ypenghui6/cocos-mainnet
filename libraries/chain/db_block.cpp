@@ -900,7 +900,7 @@ bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
                 }
                 eval_state.operation_results.emplace_back(op_result);
               }
-              catch (fc::assert_exception e)
+              catch (...)
               {
               }FC_CAPTURE_AND_LOG((0))
             }
