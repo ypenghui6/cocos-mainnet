@@ -423,7 +423,6 @@ struct extended_private_key_type
     friend bool operator==(const extended_private_key_type &p1, const extended_private_key_type &p2);
     friend bool operator!=(const extended_private_key_type &p1, const extended_private_key_type &p2);
 };
-typedef public_key_rsa_type key_rsa;
 } // namespace chain
 } // namespace graphene
 
@@ -484,9 +483,6 @@ FC_REFLECT_TYPENAME( graphene::chain::nh_asset_order_id_type )
 FC_REFLECT_TYPENAME( graphene::chain::file_id_type )
 FC_REFLECT_TYPENAME( graphene::chain::crontab_id_type )
 FC_REFLECT_TYPENAME( graphene::chain::contract_bin_code_id_type )
-
-/******************yp add******************************/
-FC_REFLECT_TYPENAME( graphene::chain::key_rsa )
 
 /**********************************************/
 FC_REFLECT_TYPENAME(graphene::chain::account_id_type)

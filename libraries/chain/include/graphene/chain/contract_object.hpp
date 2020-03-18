@@ -42,7 +42,7 @@ class contract_object : public graphene::db::abstract_object<contract_object>
     lua_map contract_data;
     lua_map contract_ABI;
     contract_bin_code_id_type lua_code_b_id;
-    key_rsa random_key;
+    public_key_rsa_type random_key;
 
   public:
     contract_object(){user_invoke_share_percent = 100;};

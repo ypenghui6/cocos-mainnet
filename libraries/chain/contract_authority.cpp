@@ -65,7 +65,7 @@ void register_scheduler::set_random_key( string d_str )
 {
     try
     {
-        key_rsa rand_key(d_str);
+        public_key_rsa_type rand_key(d_str);
         FC_ASSERT(is_owner(), "You`re not the contract`s owner");
         contract_id_type db_index = contract.id;
         db.modify(db_index(db), [&](contract_object &co) {
@@ -84,7 +84,7 @@ bool register_scheduler::verify_random_key( string digest_str, string sig_str )
     {
         contract_id_type db_index = contract.id;
         auto co = db_index(db);
-        key_rsa  rand_key = co.random_key;
+        public_key_rsa_type  rand_key = co.random_key;
         if ( rand_key != key_rsa() )
         {
             return rand_key.verify( digest_str, sig_str );
