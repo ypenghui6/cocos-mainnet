@@ -902,7 +902,8 @@ bool database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
               }
               catch (...)
               {
-              }FC_CAPTURE_AND_LOG((0))
+                wlog("auto gas failed...");
+              }
             }
       }
     }
