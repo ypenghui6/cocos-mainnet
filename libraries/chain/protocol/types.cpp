@@ -42,7 +42,7 @@ namespace graphene { namespace chain {
     public_key_rsa_type::public_key_rsa_type( const fc::public_key& pubkey )
     {
        const fc::bytes pub = pubkey.serialize();
-       fc::bytes arr(pub.data());
+       key_data(pub.data());
     };
 
     public_key_rsa_type::public_key_rsa_type( const std::string& base58str )
