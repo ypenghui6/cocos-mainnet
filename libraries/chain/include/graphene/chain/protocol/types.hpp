@@ -332,7 +332,6 @@ typedef fc::sha256 tx_hash_type;
 typedef fc::ecc::compact_signature signature_type;
 typedef safe<int64_t> share_type;
 typedef uint16_t weight_type;
-typedef public_key_rsa_type key_rsa;
 
 struct public_key_rsa_type
 {
@@ -424,6 +423,7 @@ struct extended_private_key_type
     friend bool operator==(const extended_private_key_type &p1, const extended_private_key_type &p2);
     friend bool operator!=(const extended_private_key_type &p1, const extended_private_key_type &p2);
 };
+typedef public_key_rsa_type key_rsa;
 } // namespace chain
 } // namespace graphene
 
