@@ -359,4 +359,14 @@ namespace fc
     {
        vo = graphene::chain::extended_private_key_type( var.as_string() );
     }
+
+    void to_variant( const graphene::chain::public_key_rsa_type& var, fc::variant& vo )
+    {
+       vo = std::string( var );
+    }
+    
+    void from_variant( const fc::variant& var, graphene::chain::public_key_rsa_type& vo )
+    {
+       vo = graphene::chain::public_key_rsa_type( var.as_string() );
+    }
 } // fc
