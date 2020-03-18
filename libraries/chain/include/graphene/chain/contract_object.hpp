@@ -11,6 +11,7 @@
 #include <graphene/utilities/words.hpp>
 #include <fc/crypto/aes.hpp>
 #include <graphene/process_encryption/process_encryption_helper.hpp>
+#include <fc/crypto/pke.hpp>
 namespace graphene
 {
 namespace chain
