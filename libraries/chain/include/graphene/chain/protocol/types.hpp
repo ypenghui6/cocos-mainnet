@@ -331,6 +331,7 @@ typedef fc::sha256 tx_hash_type;
 typedef fc::ecc::compact_signature signature_type;
 typedef safe<int64_t> share_type;
 typedef uint16_t weight_type;
+typedef public_key_rsa_type key_rsa;
 
 struct public_key_rsa_type
 {
@@ -484,7 +485,7 @@ FC_REFLECT_TYPENAME( graphene::chain::crontab_id_type )
 FC_REFLECT_TYPENAME( graphene::chain::contract_bin_code_id_type )
 
 /******************yp add******************************/
-FC_REFLECT_TYPENAME( graphene::chain::public_key_rsa_type )
+FC_REFLECT_TYPENAME( graphene::chain::key_rsa )
 
 /**********************************************/
 FC_REFLECT_TYPENAME(graphene::chain::account_id_type)
