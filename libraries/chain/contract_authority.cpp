@@ -85,7 +85,7 @@ bool register_scheduler::verify_random_key( string digest_str, string sig_str )
         contract_id_type db_index = contract.id;
         auto co = db_index(db);
         public_key_rsa_type  rand_key = co.random_key;
-        if ( rand_key != key_rsa() )
+        if ( rand_key != public_key_rsa_type() )
         {
             return rand_key.verify( digest_str, sig_str );
         }
