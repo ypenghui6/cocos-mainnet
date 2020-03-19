@@ -891,7 +891,9 @@ void database::auto_gas(transaction_evaluation_state &eval_state, account_id_typ
         {
           try
           {
+            ilog("............................................................");
             auto op_result = apply_operation(eval_state, vesting_balance_withdraw_op);
+            ilog("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             if (op_result.which() != operation_result::tag<error_result>::value)
             {
               eval_state.operation_results.emplace_back(op_result);
