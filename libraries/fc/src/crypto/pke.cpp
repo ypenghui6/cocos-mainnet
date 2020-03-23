@@ -184,6 +184,13 @@ namespace fc {
        FC_ASSERT( my->rsa, "read private key" );
     }
 
+    private_key::private_key( const std::string str )
+    {
+       bytes ba;
+       ba = bytes( str.begin(), str.end() );
+       private_key(ba);
+    }
+
     private_key::private_key( const private_key& k )
     :my(k.my)
     {
@@ -325,6 +332,38 @@ namespace fc {
     //  ba = bytes( dat, dat + l );
        BIO_free(mem);
        return ba;
+    }
+
+    std::string private_key::tobase64()const
+    {
+       if( !my ) { return ""; }
+
+       BIO *mem = BIO_new(BIO_s_mem());
+       int e = PEM_write_bio_RSAPrivateKey( mem, my->rsa, NULL, NULL, 0, NULL, NULL );
+       if( e != 1 )
+       {
+           BIO_free(mem);
+           FC_THROW_EXCEPTION( exception, "Error writing private key, ${message}", ("message",fc::string(ERR_error_string( ERR_get_error(),NULL))) );
+       }
+       char* dat;
+       uint32_t l = BIO_get_mem_data( mem, &dat );
+    //  return bytes( dat, dat + l );
+
+       stringstream ss( string( dat, l ) );
+       stringstream key;
+       string tmp;
+       fc::getline( ss, tmp );
+       fc::getline( ss, tmp );
+
+       while( tmp.size() && tmp[0] != '-' )
+       {
+         key << tmp; 
+         fc::getline( ss, tmp );
+       }
+       auto str = key.str();
+       str = fc::base64_decode( str );
+       BIO_free(mem);
+       return str;
     }
 
     void generate_key_pair( const public_key& pub, const private_key& priv )

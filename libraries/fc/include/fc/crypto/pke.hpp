@@ -48,6 +48,7 @@ namespace fc {
        public:
           private_key();
           explicit private_key( const bytes& d );
+          private_key( const std::string str );
           private_key( const private_key& k );
           private_key( private_key&& k );
           ~private_key();
@@ -64,6 +65,7 @@ namespace fc {
           bytes decrypt( const char* bytes, size_t len )const;
           bytes decrypt( const bytes& )const;
           bytes encrypt( const bytes& )const;
+          std::string tobase64()const;
 
           bytes serialize()const;
           friend void generate_key_pair( const public_key&, const private_key& );
