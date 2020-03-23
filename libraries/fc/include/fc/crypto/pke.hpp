@@ -11,7 +11,7 @@ namespace fc {
 
     class private_key;
     class public_key;
-    void generate_key_pair( public_key&, private_key& );
+    void generate_key_pair( const public_key&, const private_key& );
 
     typedef std::vector<char> bytes;
     typedef bytes             signature;
@@ -38,7 +38,7 @@ namespace fc {
           bytes decrypt( const bytes& )const;
 
           bytes serialize()const;
-          friend void generate_key_pair( public_key&, private_key& );
+          friend void generate_key_pair( const public_key&, const private_key& );
        private:
           std::shared_ptr<detail::pke_impl> my;
     };
@@ -66,7 +66,7 @@ namespace fc {
           bytes encrypt( const bytes& )const;
 
           bytes serialize()const;
-          friend void generate_key_pair( public_key&, private_key& );
+          friend void generate_key_pair( const public_key&, const private_key& );
 
        private:
           std::shared_ptr<detail::pke_impl> my;

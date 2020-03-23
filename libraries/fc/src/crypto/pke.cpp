@@ -327,7 +327,7 @@ namespace fc {
        return ba;
     }
 
-    void generate_key_pair( public_key& pub, private_key& priv )
+    void generate_key_pair( const public_key& pub, const private_key& priv )
     {
        static bool init = true;
        if( init ) { ERR_load_crypto_strings(); init = false; }
