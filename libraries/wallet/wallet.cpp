@@ -3319,9 +3319,9 @@ rsa_key_info wallet_api::suggest_rsa_key() const
 {
       rsa_key_info result;
       // create a private key for secure entropy
-      fc::private_key priv_key();
-      fc::public_key  pub_key();
-      generate_key_pair(&pub_key, &priv_key);
+      fc::private_key& priv_key();
+      fc::public_key&  pub_key();
+      generate_key_pair(pub_key, priv_key);
       
       result.wif_priv_key = fc::to_base58(priv_key.serialize(), sizeof(priv_key.serialize()));
       result.pub_key = pub_key;
