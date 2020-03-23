@@ -188,7 +188,7 @@ namespace fc {
     {
        bytes ba;
        ba = bytes( str.begin(), str.end() );
-       private_key(ba);
+       this.private_key(ba);
     }
 
     private_key::private_key( const private_key& k )
