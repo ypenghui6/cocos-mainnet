@@ -184,16 +184,6 @@ namespace fc {
        FC_ASSERT( my->rsa, "read private key" );
     }
 
-    private_key::private_key( const std::string str )
-    :my( std::make_shared<detail::pke_impl>() )
-    {
-       BIO* mem = (BIO*)BIO_new_mem_buf( (void*)str.c_str(), str.size() );
-       my->rsa = PEM_read_bio_RSAPrivateKey(mem, NULL, NULL, NULL );
-       BIO_free(mem);
-
-       FC_ASSERT( my->rsa, "read private key" );
-    }
-
     private_key::private_key( const private_key& k )
     :my(k.my)
     {

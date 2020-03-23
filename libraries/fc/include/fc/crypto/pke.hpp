@@ -48,7 +48,6 @@ namespace fc {
        public:
           private_key();
           explicit private_key( const bytes& d );
-          private_key( const std::string str );
           private_key( const private_key& k );
           private_key( private_key&& k );
           ~private_key();
