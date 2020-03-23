@@ -3323,7 +3323,14 @@ rsa_key_info wallet_api::suggest_rsa_key() const
       const fc::public_key pub_key = fc::public_key();
       generate_key_pair( pub_key, priv_key );
       
-      result.wif_priv_key = priv_key.tobase64();
+      fc::bytes d = priv_key.serialize();
+      std::string pem = "-----BEGIN RSA PRIVATE KEY-----\n";
+      auto b64 = fc::base64_encode( (const unsigned char*)d.data(), d.size() );
+      for( size_t i = 0; i < b64.size(); i += 64 )
+            pem += b64.substr( i, 64 ) + "\n";
+      pem += "-----END RSA PRIVATE KEY-----\n";
+
+      result.wif_priv_key = pem;
       result.pub_key = pub_key;
       return result;
 }
