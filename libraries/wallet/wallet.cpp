@@ -57,6 +57,7 @@
 #include <fc/rpc/websocket_api.hpp>
 #include <fc/crypto/aes.hpp>
 #include <fc/crypto/hex.hpp>
+#include <fc/crypto/pke.hpp>
 #include <fc/thread/mutex.hpp>
 #include <fc/thread/scoped_lock.hpp>
 
@@ -3311,6 +3312,19 @@ brain_key_info wallet_api::suggest_brain_key() const
       result.wif_priv_key = key_to_wif(priv_key);
       result.address_info = priv_key.get_public_key();
       result.pub_key = priv_key.get_public_key();
+      return result;
+}
+
+rsa_key_info wallet_api::suggest_rsa_key() const
+{
+      rsa_key_info result;
+      // create a private key for secure entropy
+      fc::private_key priv_key;
+      fc::public_key  pub_key;
+      generate_key_pair(&pub_key, &priv_key);
+      
+      result.wif_priv_key = fc::to_base58(priv_key.serialize(), sizeof(priv_key.serialize()));
+      result.pub_key = pub_key;
       return result;
 }
 
