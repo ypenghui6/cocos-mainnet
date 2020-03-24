@@ -3348,8 +3348,9 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
             if(priv_key.compare(priv_key.length() - GRAPHENE_RSA_PRIVATE_END_SIZE - 1, priv_key.length() - 1, GRAPHENE_RSA_PRIVATE_END) == 0)
             {
                   tmp_priv = tmp_priv.substr(0, priv_key.length() - GRAPHENE_RSA_PRIVATE_END_SIZE - 3);
-            } 
-            fc::bytes ba = fc::bytes( tmp_priv.begin(), tmp_priv.end() );
+            }
+            std::string tmp_priv_decode = fc::base64_decode( tmp_priv );
+            fc::bytes ba = fc::bytes( tmp_priv_decode.begin(), tmp_priv_decode.end() );
             fc::private_key priv = fc::private_key( ba );
             //signature sign( const sha256& digest )const;
             fc::sha256 digest_str = fc::sha256::hash(input);
@@ -3359,7 +3360,7 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
             result.digest_str = digest_str;
             return result;
       }
-      FC_CAPTURE_AND_RETHROW((priv_key))
+      FC_CAPTURE_AND_RETHROW((0))
 }
 
 address_key_info wallet_api::suggest_brain_address_key() const
