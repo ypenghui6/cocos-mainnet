@@ -3353,7 +3353,7 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
             {
                   for(int i = 63; i < tmp_priv.length(); i += 64)
                   {
-                  tmp_priv = tmp_priv.replace(i, 2, "");
+                        tmp_priv = tmp_priv.replace(i, 2, "");
                   }
             }
             
@@ -3369,7 +3369,7 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
             for( size_t i = 0; i < b64.size(); i += 64 )
                   sig_str += b64.substr( i, 64 );
             result.sig_str = sig_str;
-            result.digest_str = digest_str;
+            result.digest_str = digest_str.str();
 
             return result;
       }
