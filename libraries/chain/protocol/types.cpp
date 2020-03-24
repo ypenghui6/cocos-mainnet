@@ -50,11 +50,11 @@ namespace graphene { namespace chain {
        try
        {
             std::string tmp_pub = base64str;
-            if(priv_key.compare(0, GRAPHENE_RSA_PUBLIC_BEGIN_SIZE - 1, GRAPHENE_RSA_PUBLIC_BEGIN) == 0)
+            if(base64str.compare(0, GRAPHENE_RSA_PUBLIC_BEGIN_SIZE - 1, GRAPHENE_RSA_PUBLIC_BEGIN) == 0)
             {
                   tmp_pub = tmp_pub.substr( GRAPHENE_RSA_PUBLIC_BEGIN_SIZE -1 );
             }      
-            if(priv_key.compare(priv_key.length() - GRAPHENE_RSA_PUBLIC_END_SIZE + 1, priv_key.length(), GRAPHENE_RSA_PUBLIC_END) == 0)
+            if(base64str.compare(base64str.length() - GRAPHENE_RSA_PUBLIC_END_SIZE + 1, base64str.length(), GRAPHENE_RSA_PUBLIC_END) == 0)
             {
                   tmp_pub = tmp_pub.substr(0, tmp_pub.length() - GRAPHENE_RSA_PUBLIC_END_SIZE);
             }
