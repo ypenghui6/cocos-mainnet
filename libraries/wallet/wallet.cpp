@@ -3344,10 +3344,12 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
             if(priv_key.compare(0, GRAPHENE_RSA_PRIVATE_BEGIN_SIZE - 1, GRAPHENE_RSA_PRIVATE_BEGIN) == 0)
             {
                   tmp_priv = tmp_priv.substr( GRAPHENE_RSA_PRIVATE_BEGIN_SIZE );
+                  ilog("================ ${k}", ("k", tmp_priv));
             }      
             if(priv_key.compare(priv_key.length() - GRAPHENE_RSA_PRIVATE_END_SIZE - 1, priv_key.length() - 1, GRAPHENE_RSA_PRIVATE_END) == 0)
             {
-                  tmp_priv = tmp_priv.substr(0, priv_key.length() - GRAPHENE_RSA_PRIVATE_END_SIZE - 3);
+                  tmp_priv = tmp_priv.substr(0, tmp_priv.length() - GRAPHENE_RSA_PRIVATE_END_SIZE - 3);
+                  ilog("---------------- ${k}", ("k", tmp_priv));
             }
             std::string tmp_priv_decode = fc::base64_decode( tmp_priv );
             fc::bytes ba = fc::bytes( tmp_priv_decode.begin(), tmp_priv_decode.end() );
@@ -3358,6 +3360,8 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
             std::string sig_str(sig.begin(), sig.end());
             result.sig_str = sig_str;
             result.digest_str = digest_str;
+             
+
             return result;
       }
       FC_CAPTURE_AND_RETHROW((0))
