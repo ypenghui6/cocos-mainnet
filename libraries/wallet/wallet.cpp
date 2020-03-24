@@ -3335,30 +3335,27 @@ rsa_key_info wallet_api::suggest_rsa_key() const
       return result;
 }
 
-rsa_sig_info rsa_sig(std::string input, std::string priv_key) const
+rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
 {
       try
       {
             rsa_sig_info result;
             std::string tmp_priv = priv_key;
-            if(priv_key.compare(0, GRAPHENE_RSA_PRIVATE_BEGIN.length() - 1, GRAPHENE_RSA_PRIVATE_BEGIN) == 0)
+            if(priv_key.compare(0, sizeof(GRAPHENE_RSA_PRIVATE_BEGIN) - 1, GRAPHENE_RSA_PRIVATE_BEGIN) == 0)
             {
-                  tmp_priv = tmp_priv.substr(GRAPHENE_RSA_PRIVATE_BEGIN.length());
+                  tmp_priv = tmp_priv.substr(sizeof(GRAPHENE_RSA_PRIVATE_BEGIN));
             }      
-            if(priv_key.compare(priv_key.length() - GRAPHENE_RSA_PRIVATE_END.length() - 1, priv_key.length() - 1, GRAPHENE_RSA_PRIVATE_END) == 0)
+            if(priv_key.compare(priv_key.length() - sizeof(GRAPHENE_RSA_PRIVATE_END) - 1, priv_key.length() - 1, GRAPHENE_RSA_PRIVATE_END) == 0)
             {
-                  tmp_priv = tmp_priv.substr(0, tmp_priv.length() - GRAPHENE_RSA_PRIVATE_END.length() - 2);
+                  tmp_priv = tmp_priv.substr(0, tmp_priv.length() - sizeof(GRAPHENE_RSA_PRIVATE_END) - 2);
             } 
-            fc::bytes ba = bytes( tmp_priv.begin(), tmp_priv.end() );
+            fc::bytes ba = fc::bytes( tmp_priv.begin(), tmp_priv.end() );
             fc::private_key priv = fc::private_key( ba );
             //signature sign( const sha256& digest )const;
             fc::sha256 digest_str = fc::sha256::hash(input);
-            fc::signature sig_str = priv.sign(digest_str);
-            std::stringstream oss; 
-            for(unsigned int i=0; i < sig_str.size(); i++){ 
-                  oss<<sig_str[i]; 
-            } 
-            result.sig_str = oss.str();
+            fc::signature sig = priv.sign(digest_str);
+            std::string sig_str(sig.begin(), sig.end());
+            result.sig_str = sig_str;
             result.digest_str = digest_str;
             return result;
       }
