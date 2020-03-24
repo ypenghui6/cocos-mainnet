@@ -3325,7 +3325,7 @@ rsa_key_info wallet_api::suggest_rsa_key() const
       
       fc::bytes d = priv_key.serialize();
       std::string pem = "-----BEGIN RSA PRIVATE KEY-----\n";
-      auto b64 = fc::to_base64( (const unsigned char*)d.data(), d.size() );
+      auto b64 = fc::base64_encode( (const unsigned char*)d.data(), d.size() );
       for( size_t i = 0; i < b64.size(); i += 64 )
             pem += b64.substr( i, 64 ) + "\n";
       pem += "-----END RSA PRIVATE KEY-----\n";
