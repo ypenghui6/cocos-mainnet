@@ -64,6 +64,7 @@ namespace graphene { namespace chain {
                   {
                         tmp_pub = tmp_pub.replace(i, 2, "");
                   }
+                  ilog("+++++++++: ${k}", ("k", base64str));
             }
 
             std::string bin = fc::base64_decode( tmp_pub );
