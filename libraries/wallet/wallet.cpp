@@ -3344,20 +3344,17 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
             if(priv_key.compare(0, GRAPHENE_RSA_PRIVATE_BEGIN_SIZE - 1, GRAPHENE_RSA_PRIVATE_BEGIN) == 0)
             {
                   tmp_priv = tmp_priv.substr( GRAPHENE_RSA_PRIVATE_BEGIN_SIZE -1 );
-                  ilog("=========: ${k}", ("k", tmp_priv));
             }      
             if(priv_key.compare(priv_key.length() - GRAPHENE_RSA_PRIVATE_END_SIZE + 1, priv_key.length(), GRAPHENE_RSA_PRIVATE_END) == 0)
             {
                   tmp_priv = tmp_priv.substr(0, tmp_priv.length() - GRAPHENE_RSA_PRIVATE_END_SIZE);
-                  ilog("---------: ${k}", ("k", tmp_priv));
             }
             if(tmp_priv.find_first_of("\n") == 64)
             {
-                  for(int i = 63; i < tmp_priv.length(); i += 64)
+                  for(int i = 64; i < tmp_priv.length(); i += 64)
                   {
-                        tmp_priv = tmp_priv.replace(i, 2, "");
+                        tmp_priv.replace(i, 1, "");
                   }
-                  ilog("+++++++++: ${k}", ("k", tmp_priv));
             }
             
             std::string tmp_priv_decode = fc::base64_decode( tmp_priv );
