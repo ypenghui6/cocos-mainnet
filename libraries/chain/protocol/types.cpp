@@ -82,11 +82,13 @@ namespace graphene { namespace chain {
 
     public_key_rsa_type::operator std::string() const
     {
-       binary_key k;
-       k.data = key_data;
-       k.check = fc::ripemd160::hash( &k.data[0], k.data.size() )._hash[0];
-       auto data = fc::raw::pack( k );
-       return GRAPHENE_ADDRESS_PREFIX + fc::to_base58( data.data(), data.size() );
+       std::string pem = "-----BEGIN RSA PUBLIC KEY-----\n";
+       auto b64 = fc::base64_encode( (const unsigned char*)key_data.data(), key_data.size() );
+       for( size_t i = 0; i < b64.size(); i += 64 )
+           pem += b64.substr( i, 64 ) + "\n";
+       pem += "-----END RSA PUBLIC KEY-----\n";
+
+       return pem;
     }
 
     bool operator == ( const public_key_rsa_type& p1, const fc::public_key& p2)
