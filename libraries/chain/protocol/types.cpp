@@ -60,7 +60,7 @@ namespace graphene { namespace chain {
             }
             if(tmp_pub.find_first_of("\n") == 64)
             {
-                  for(int i = 63; i < tmp_pub.length(); i += 64)
+                  for(unsigned int i = 63; i < tmp_pub.length(); i += 64)
                   {
                         tmp_pub = tmp_pub.replace(i, 2, "");
                   }
