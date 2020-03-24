@@ -192,6 +192,6 @@
                             tan=math.tan, tanh=math.tanh }  } return baseENV"
 
 #define GRAPHENE_RSA_PRIVATE_BEGIN "-----BEGIN RSA PRIVATE KEY-----\n"
-#define GRAPHENE_RSA_PRIVATE_END "-----END RSA PRIVATE KEY-----\n"
-#define GRAPHENE_RSA_PUBLIC_BEGIN "-----BEGIN RSA PUBLIC KEY-----\n"
-#define GRAPHENE_RSA_PUBLIC_END "-----END RSA PUBLIC KEY-----\n"
+#define GRAPHENE_RSA_PRIVATE_END   "-----END RSA PRIVATE KEY-----\n"
+#define GRAPHENE_RSA_PUBLIC_BEGIN  "-----BEGIN RSA PUBLIC KEY-----\n"
+#define GRAPHENE_RSA_PUBLIC_END    "-----END RSA PUBLIC KEY-----\n"
