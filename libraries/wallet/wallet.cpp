@@ -3343,24 +3343,33 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
             std::string tmp_priv = priv_key;
             if(priv_key.compare(0, GRAPHENE_RSA_PRIVATE_BEGIN_SIZE - 1, GRAPHENE_RSA_PRIVATE_BEGIN) == 0)
             {
-                  tmp_priv = tmp_priv.substr( GRAPHENE_RSA_PRIVATE_BEGIN_SIZE );
-                  ilog("================ ${k}", ("k", tmp_priv));
+                  tmp_priv = tmp_priv.substr( GRAPHENE_RSA_PRIVATE_BEGIN_SIZE -1 );
             }      
-            if(priv_key.compare(priv_key.length() - GRAPHENE_RSA_PRIVATE_END_SIZE - 1, priv_key.length() - 1, GRAPHENE_RSA_PRIVATE_END) == 0)
+            if(priv_key.compare(priv_key.length() - GRAPHENE_RSA_PRIVATE_END_SIZE + 1, priv_key.length(), GRAPHENE_RSA_PRIVATE_END) == 0)
             {
-                  tmp_priv = tmp_priv.substr(0, tmp_priv.length() - GRAPHENE_RSA_PRIVATE_END_SIZE - 3);
-                  ilog("---------------- ${k}", ("k", tmp_priv));
+                  tmp_priv = tmp_priv.substr(0, tmp_priv.length() - GRAPHENE_RSA_PRIVATE_END_SIZE);
             }
+            if(tmp_priv.find_first_of("\n") == 64)
+            {
+                  for(int i = 63; i < tmp_priv.length(); i += 64)
+                  {
+                  tmp_priv = tmp_priv.replace(i, 2, "");
+                  }
+            }
+            
             std::string tmp_priv_decode = fc::base64_decode( tmp_priv );
             fc::bytes ba = fc::bytes( tmp_priv_decode.begin(), tmp_priv_decode.end() );
             fc::private_key priv = fc::private_key( ba );
             //signature sign( const sha256& digest )const;
             fc::sha256 digest_str = fc::sha256::hash(input);
             fc::signature sig = priv.sign(digest_str);
-            std::string sig_str(sig.begin(), sig.end());
+
+            std::string sig_str = "";
+            auto b64 = fc::base64_encode( (const unsigned char*)sig.data(), sig.size() );
+            for( size_t i = 0; i < b64.size(); i += 64 )
+                  sig_str += b64.substr( i, 64 );
             result.sig_str = sig_str;
             result.digest_str = digest_str;
-             
 
             return result;
       }
