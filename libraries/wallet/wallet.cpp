@@ -3341,13 +3341,13 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
       {
             rsa_sig_info result;
             std::string tmp_priv = priv_key;
-            if(priv_key.compare(0, strlen(GRAPHENE_RSA_PRIVATE_BEGIN) - 1, GRAPHENE_RSA_PRIVATE_BEGIN) == 0)
+            if(priv_key.compare(0, GRAPHENE_RSA_PRIVATE_BEGIN_SIZE - 1, GRAPHENE_RSA_PRIVATE_BEGIN) == 0)
             {
-                  tmp_priv = tmp_priv.substr(strlen(GRAPHENE_RSA_PRIVATE_BEGIN));
+                  tmp_priv = tmp_priv.substr( GRAPHENE_RSA_PRIVATE_BEGIN_SIZE );
             }      
-            if(priv_key.compare(priv_key.length() - strlen(GRAPHENE_RSA_PRIVATE_END) - 1, priv_key.length() - 1, GRAPHENE_RSA_PRIVATE_END) == 0)
+            if(priv_key.compare(priv_key.length() - GRAPHENE_RSA_PRIVATE_END_SIZE - 1, priv_key.length() - 1, GRAPHENE_RSA_PRIVATE_END) == 0)
             {
-                  tmp_priv = tmp_priv.substr(0, tmp_priv.length() - strlen(GRAPHENE_RSA_PRIVATE_END) - 2);
+                  tmp_priv = tmp_priv.substr(0, priv_key.length() - GRAPHENE_RSA_PRIVATE_END_SIZE - 3);
             } 
             fc::bytes ba = fc::bytes( tmp_priv.begin(), tmp_priv.end() );
             fc::private_key priv = fc::private_key( ba );
