@@ -65,9 +65,9 @@ namespace graphene { namespace chain {
                         tmp_pub = tmp_pub.replace(i, 2, "");
                   }
             }
-            auto bin = fc::base64_decode( tmp_pub );
-            auto bin_key = fc::raw::unpack<binary_key>(bin);
-            key_data = bin_key.data;
+
+            std::string bin = fc::base64_decode( tmp_pub );
+            key_data = fc::bytes( bin.begin(), bin.end() );
        }
        catch( ... )
        {
