@@ -3324,15 +3324,45 @@ rsa_key_info wallet_api::suggest_rsa_key() const
       generate_key_pair( pub_key, priv_key );
       
       fc::bytes d = priv_key.serialize();
-      std::string pem = "-----BEGIN RSA PRIVATE KEY-----\n";
+      std::string pem = GRAPHENE_RSA_PRIVATE_BEGIN;
       auto b64 = fc::base64_encode( (const unsigned char*)d.data(), d.size() );
       for( size_t i = 0; i < b64.size(); i += 64 )
             pem += b64.substr( i, 64 ) + "\n";
-      pem += "-----END RSA PRIVATE KEY-----\n";
+      pem += GRAPHENE_RSA_PRIVATE_END;
 
       result.wif_priv_key = pem;
       result.pub_key = pub_key;
       return result;
+}
+
+rsa_sig_info rsa_sig(std::string input, std::string priv_key) const
+{
+      try
+      {
+            rsa_sig_info result;
+            std::string tmp_priv = priv_key;
+            if(priv_key.compare(0, GRAPHENE_RSA_PRIVATE_BEGIN.length() - 1, GRAPHENE_RSA_PRIVATE_BEGIN) == 0)
+            {
+                  tmp_priv = tmp_priv.substr(GRAPHENE_RSA_PRIVATE_BEGIN.length());
+            }      
+            if(priv_key.compare(priv_key.length() - GRAPHENE_RSA_PRIVATE_END.length() - 1, priv_key.length() - 1, GRAPHENE_RSA_PRIVATE_END) == 0)
+            {
+                  tmp_priv = tmp_priv.substr(0, tmp_priv.length() - GRAPHENE_RSA_PRIVATE_END.length() - 2);
+            } 
+            fc::bytes ba = bytes( tmp_priv.begin(), tmp_priv.end() );
+            fc::private_key priv = fc::private_key( ba );
+            //signature sign( const sha256& digest )const;
+            fc::sha256 digest_str = fc::sha256::hash(input);
+            fc::signature sig_str = priv.sign(digest_str);
+            std::stringstream oss; 
+            for(unsigned int i=0; i < sig_str.size(); i++){ 
+                  oss<<sig_str[i]; 
+            } 
+            result.sig_str = oss.str();
+            result.digest_str = digest_str;
+            return result;
+      }
+      FC_CAPTURE_AND_RETHROW((priv_key))
 }
 
 address_key_info wallet_api::suggest_brain_address_key() const

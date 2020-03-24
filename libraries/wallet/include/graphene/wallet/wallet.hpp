@@ -71,6 +71,12 @@ struct rsa_key_info
     public_key_rsa_type pub_key;
 };
 
+struct rsa_sig_info
+{
+    string digest_str;
+    string sig_str ;
+};
+
 struct address_key_info
 {
     string brain_priv_key;
@@ -538,6 +544,8 @@ class wallet_api
     brain_key_info suggest_brain_key() const;
 
     rsa_key_info suggest_rsa_key() const;
+
+    rsa_sig_info rsa_sig(std::string input, std::string priv_key) const;
 
     address_key_info suggest_brain_address_key() const;
     /**
@@ -1479,6 +1487,9 @@ FC_REFLECT(graphene::wallet::brain_key_info,
 FC_REFLECT(graphene::wallet::rsa_key_info,
            (wif_priv_key)(pub_key))
 
+FC_REFLECT(graphene::wallet::rsa_sig_info,
+           (digest_str)(sig_str))
+
 FC_REFLECT(graphene::wallet::address_key_info,
            (brain_priv_key)(wif_priv_key)(pub_key))
 
@@ -1511,7 +1522,7 @@ FC_API(graphene::wallet::wallet_api,
        //gas
        (update_collateral_for_gas)(get_signature_keys)
        /*nico end*/
-       (list_assets)(list_asset_restricted_objects)(asset_update_restricted_list)(import_key)(import_balance)(suggest_brain_key)(suggest_rsa_key)(suggest_brain_address_key)(derive_owner_keys_from_brain_key)(register_account)(upgrade_account)(create_account_with_brain_key)(sell_asset)(sell)(buy)(borrow_asset)(cancel_order)(transfer)(transfer2)(get_transaction_id)(create_asset)(update_asset)(update_bitasset)(update_asset_feed_producers)(publish_asset_feed)(issue_asset)(get_asset)(get_bitasset_data)(reserve_asset)(global_settle_asset)(settle_asset)(bid_collateral)
+       (list_assets)(list_asset_restricted_objects)(asset_update_restricted_list)(import_key)(import_balance)(suggest_brain_key)(suggest_rsa_key)(rsa_sig)(suggest_brain_address_key)(derive_owner_keys_from_brain_key)(register_account)(upgrade_account)(create_account_with_brain_key)(sell_asset)(sell)(buy)(borrow_asset)(cancel_order)(transfer)(transfer2)(get_transaction_id)(create_asset)(update_asset)(update_bitasset)(update_asset_feed_producers)(publish_asset_feed)(issue_asset)(get_asset)(get_bitasset_data)(reserve_asset)(global_settle_asset)(settle_asset)(bid_collateral)
        //(whitelist_account)
        (create_committee_member)(update_committee_member)(get_witness)(get_committee_member)(list_witnesses)(list_committee_members)(create_witness)(update_witness)(get_vesting_balances)(withdraw_vesting)(vote_for_committee_member)(vote_for_witness)(get_account)(get_account_id)(get_block)(get_block_by_id)(get_account_count)(get_account_history)(get_relative_account_history)(get_collateral_bids)(is_public_key_registered)(get_market_history)(get_global_properties)(get_dynamic_global_properties)(get_object)(get_private_key)
        //

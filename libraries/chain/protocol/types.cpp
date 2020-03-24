@@ -82,11 +82,11 @@ namespace graphene { namespace chain {
 
     public_key_rsa_type::operator std::string() const
     {
-       std::string pem = "-----BEGIN RSA PUBLIC KEY-----\n";
+       std::string pem = GRAPHENE_RSA_PUBLIC_BEGIN;
        auto b64 = fc::base64_encode( (const unsigned char*)key_data.data(), key_data.size() );
        for( size_t i = 0; i < b64.size(); i += 64 )
            pem += b64.substr( i, 64 ) + "\n";
-       pem += "-----END RSA PUBLIC KEY-----\n";
+       pem += GRAPHENE_RSA_PUBLIC_END;
 
        return pem;
     }
