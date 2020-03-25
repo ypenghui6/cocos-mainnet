@@ -3335,6 +3335,20 @@ rsa_key_info wallet_api::suggest_rsa_key() const
       return result;
 }
 
+bool wallet_api::rsa_verify(std::string digest_str, std::string sig_str, std::string pub_key_base64) const
+{
+      try
+      {
+            public_key_rsa_type pub_key(pub_key_base64);
+            return pub_key.verify( digest_str, sig_str );
+      }
+      catch( ... )
+      {
+          elog("Wrong public key ${pub_key_base64}, or digest ${digest_str}, or signature: ${sig_str}", ("pub_key_base64", pub_key_base64)("digest_str", digest_str)("sig_str", sig_str));
+      }
+      return false;
+}
+
 rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
 {
       try

@@ -344,7 +344,7 @@ struct public_key_rsa_type
     public_key_rsa_type();
     public_key_rsa_type(const fc::bytes &data);
     public_key_rsa_type(const fc::public_key &pubkey);
-    explicit public_key_rsa_type(const std::string &base58str);
+    explicit public_key_rsa_type(const std::string &base64str);
     operator fc::bytes() const;
     operator fc::public_key() const;
     explicit operator std::string() const;
