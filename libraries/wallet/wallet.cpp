@@ -3340,7 +3340,8 @@ bool wallet_api::rsa_verify(std::string digest_str, std::string sig_str, std::st
       try
       {
             public_key_rsa_type pub_key(pub_key_base64);
-            return pub_key.verify( digest_str, sig_str );
+            bool result = pub_key.verify( digest_str, sig_str );
+            return result;
       }
       catch( ... )
       {

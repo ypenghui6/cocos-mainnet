@@ -60,19 +60,16 @@ namespace graphene { namespace chain {
             }
             if(tmp_pub.find_first_of("\n") == 64)
             {
-                  for(unsigned int i = 63; i < tmp_pub.length(); i += 64)
+                  for(unsigned int i = 64; i < tmp_pub.length(); i += 64)
                   {
-                        tmp_pub = tmp_pub.replace(i, 2, "");
+                        tmp_pub = tmp_pub.replace(i, 1, "");
                   }
             }
 
             std::string bin = fc::base64_decode( tmp_pub );
             key_data = fc::bytes( bin.begin(), bin.end() );
        }
-       catch( ... )
-       {
-          FC_THROW("Wrong RSA key: ${k}", ("k", base64str));
-       }
+       FC_CAPTURE_AND_RETHROW((base64str))
     };
 
     public_key_rsa_type::operator fc::bytes() const
