@@ -3339,6 +3339,31 @@ bool wallet_api::rsa_verify(std::string digest_str, std::string sig_str, std::st
 {
       try
       {
+            if( digest_str.length() != 64 || sig_str.length() != 344 ){
+                  elog("Wrong digest ${digest_str}, or signature: ${sig_str}", ("digest_str", digest_str)("sig_str", sig_str));
+                  return false;
+            }
+
+            std::string tmp_pub = pub_key_base64;
+            if(pub_key_base64.compare(0, GRAPHENE_RSA_PUBLIC_BEGIN_SIZE - 1, GRAPHENE_RSA_PUBLIC_BEGIN) == 0)
+            {
+                  tmp_pub = tmp_pub.substr( GRAPHENE_RSA_PUBLIC_BEGIN_SIZE -1 );
+            }      
+            if(pub_key_base64.compare(pub_key_base64.length() - GRAPHENE_RSA_PUBLIC_END_SIZE + 1, pub_key_base64.length(), GRAPHENE_RSA_PUBLIC_END) == 0)
+            {
+                  tmp_pub = tmp_pub.substr(0, tmp_pub.length() - GRAPHENE_RSA_PUBLIC_END_SIZE);
+            }
+            if(tmp_pub.find_first_of("\n") == 64)
+            {
+                  for(unsigned int i = 64; i < tmp_pub.length(); i += 64)
+                  {
+                        tmp_pub = tmp_pub.replace(i, 1, "");
+                  }
+            }
+            if( tmp_pub.length() != 1588 ){
+                  elog("Wrong public key ${pub_key_base64}", ("pub_key_base64", pub_key_base64));
+                  return false;
+            }
             public_key_rsa_type pub_key(pub_key_base64);
             bool result = pub_key.verify( digest_str, sig_str );
             return result;
@@ -3355,6 +3380,11 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
       try
       {
             rsa_sig_info result;
+            if( input.length() < 1 ){
+                  elog("please input something ${input}", ("input", input));
+                  return result;
+            }
+
             std::string tmp_priv = priv_key;
             if(priv_key.compare(0, GRAPHENE_RSA_PRIVATE_BEGIN_SIZE - 1, GRAPHENE_RSA_PRIVATE_BEGIN) == 0)
             {
@@ -3372,6 +3402,10 @@ rsa_sig_info wallet_api::rsa_sig(std::string input, std::string priv_key) const
                   }
             }
             
+            if( tmp_priv.length() != 1588 ){
+                  elog("Wrong private key ${tmp_priv}", ("tmp_priv", tmp_priv));
+                  return result;
+            }
             std::string tmp_priv_decode = fc::base64_decode( tmp_priv );
             fc::bytes ba = fc::bytes( tmp_priv_decode.begin(), tmp_priv_decode.end() );
             fc::private_key priv = fc::private_key( ba );
